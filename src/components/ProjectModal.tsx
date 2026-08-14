@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { X, ExternalLink, Github, CheckCircle, Tag, Layers, User, Briefcase } from 'lucide-react';
+import { X, ExternalLink, Tag, Layers, User, Briefcase } from 'lucide-react';
+import { GitHubIcon } from './BrandIcons';
 import { Project } from '@/lib/types';
 
 interface ProjectModalProps {
@@ -67,7 +68,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-all"
               >
-                <Github className="w-4 h-4" />
+                <GitHubIcon className="w-4 h-4" />
                 <span>View GitHub Repository</span>
               </a>
             )}

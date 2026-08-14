@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Linkedin, Github, Mail, MapPin, ArrowRight, Download, Sparkles, Code2, Database, Bot } from 'lucide-react';
+import { Mail, MapPin, ArrowRight, Download, Sparkles, Code2, Database, Bot } from 'lucide-react';
+import { LinkedInIcon, GitHubIcon } from './BrandIcons';
 import { Profile } from '@/lib/types';
 
 interface HeroProps {
@@ -106,7 +107,7 @@ export default function Hero({ profile, onOpenResume }: HeroProps) {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
               >
-                <Linkedin className="w-4 h-4 text-cyan-400" />
+                <LinkedInIcon className="w-4 h-4 text-cyan-400" />
                 <span>LinkedIn Profile</span>
               </a>
 
@@ -116,7 +117,7 @@ export default function Hero({ profile, onOpenResume }: HeroProps) {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
               >
-                <Github className="w-4 h-4 text-slate-300" />
+                <GitHubIcon className="w-4 h-4 text-slate-300" />
                 <span>GitHub Code</span>
               </a>
 

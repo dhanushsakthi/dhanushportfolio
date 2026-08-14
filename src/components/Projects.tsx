@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Github, Sparkles, Layers, ArrowUpRight, CheckCircle } from 'lucide-react';
+import { ExternalLink, Sparkles, ArrowUpRight } from 'lucide-react';
+import { GitHubIcon } from './BrandIcons';
 import { Project } from '@/lib/types';
 import ProjectModal from './ProjectModal';
 
@@ -146,7 +147,7 @@ export default function Projects({ projects }: ProjectsProps) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition-all"
                       >
-                        <Github className="w-3.5 h-3.5" />
+                        <GitHubIcon className="w-3.5 h-3.5" />
                         <span>GitHub</span>
                       </a>
                     )}

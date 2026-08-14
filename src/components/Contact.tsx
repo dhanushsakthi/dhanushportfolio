@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Linkedin, Github, Send, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
+import { LinkedInIcon, GitHubIcon } from './BrandIcons';
 import { Profile } from '@/lib/types';
 
 interface ContactProps {
@@ -119,7 +120,7 @@ export default function Contact({ profile }: ContactProps) {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-sm font-semibold text-slate-200 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
               >
-                <Linkedin className="w-4 h-4 text-cyan-400" />
+                <LinkedInIcon className="w-4 h-4 text-cyan-400" />
                 <span>LinkedIn</span>
               </a>
 
@@ -129,7 +130,7 @@ export default function Contact({ profile }: ContactProps) {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-sm font-semibold text-slate-200 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
               >
-                <Github className="w-4 h-4 text-slate-200" />
+                <GitHubIcon className="w-4 h-4 text-slate-200" />
                 <span>GitHub</span>
               </a>
             </div>

@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Linkedin, Github, Mail, ArrowUp, Lock } from 'lucide-react';
+import { Mail, ArrowUp, Lock } from 'lucide-react';
+import { LinkedInIcon, GitHubIcon } from './BrandIcons';
 import { Profile } from '@/lib/types';
 
 interface FooterProps {
@@ -36,7 +37,7 @@ export default function Footer({ profile }: FooterProps) {
               className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
               title="LinkedIn"
             >
-              <Linkedin className="w-4 h-4" />
+              <LinkedInIcon className="w-4 h-4" />
             </a>
 
             <a
@@ -46,7 +47,7 @@ export default function Footer({ profile }: FooterProps) {
               className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
               title="GitHub"
             >
-              <Github className="w-4 h-4" />
+              <GitHubIcon className="w-4 h-4" />
             </a>
 
             <a

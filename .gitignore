@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# CMS runtime data (managed by admin dashboard)
+/data/
+
+# Uploaded media files (should be managed per deployment)
+# Comment this out if you want to commit the initial assets
+# /public/uploads/
