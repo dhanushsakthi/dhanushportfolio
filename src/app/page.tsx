@@ -13,12 +13,11 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ResumeViewerModal from '@/components/ResumeViewerModal';
 import { PortfolioData } from '@/lib/types';
-import { INITIAL_DATA } from '@/lib/db';
+import { INITIAL_DATA } from '@/lib/initialData';
 
 export default function Home() {
   const [data, setData] = useState<PortfolioData>(INITIAL_DATA);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch('/api/content')
