@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { checkAdminSession } from '@/lib/auth';
-import fs from 'fs';
-import path from 'path';
+
+const getFs = () => (typeof window === 'undefined' ? require('fs') : null);
+const getPath = () => (typeof window === 'undefined' ? require('path') : null);
 
 export async function POST(req: Request) {
   const isAuth = await checkAdminSession();
@@ -26,9 +27,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, message: 'File size exceeds 15MB limit' }, { status: 400 });
     }
 
+    const fs = getFs();
+    const path = getPath();
+    if (!fs || !path) {
+      return NextResponse.json({ success: false, message: 'Server environment error' }, { status: 500 });
+    }
+
     const uploadDir = path.join(process.cwd(), 'public', folderType);
     if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+      try {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      } catch {
+        // Ignored on read-only FS
+      }
     }
 
     // Clean file extension and name
@@ -38,7 +49,11 @@ export async function POST(req: Request) {
     const fileName = `${safeName}_${Date.now()}${ext}`;
     const filePath = path.join(uploadDir, fileName);
 
-    fs.writeFileSync(filePath, buffer);
+    try {
+      fs.writeFileSync(filePath, buffer);
+    } catch (err) {
+      console.warn('Could not write to public folder on serverless environment:', err);
+    }
 
     const publicUrl = `/${folderType}/${fileName}`;
     return NextResponse.json({

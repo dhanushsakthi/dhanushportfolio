@@ -1,40 +1,69 @@
-import fs from 'fs';
-import path from 'path';
 import { PortfolioData, ContactMessage } from './types';
 import { INITIAL_DATA, hashPassword } from './initialData';
 
 export { INITIAL_DATA, hashPassword };
 
-// Standard paths
-const DATA_DIR = path.join(process.cwd(), 'data');
-const DATA_FILE = path.join(DATA_DIR, 'portfolio.json');
-const MESSAGES_FILE = path.join(DATA_DIR, 'messages.json');
+// Node.js server-side modules loaded safely
+const getFs = () => (typeof window === 'undefined' ? require('fs') : null);
+const getPath = () => (typeof window === 'undefined' ? require('path') : null);
 
-// Fallback paths for Serverless (Vercel read-only filesystem)
-const TMP_DIR = path.join('/tmp', 'data');
-const TMP_DATA_FILE = path.join(TMP_DIR, 'portfolio.json');
-const TMP_MESSAGES_FILE = path.join(TMP_DIR, 'messages.json');
+function getDataDir(): string {
+  const path = getPath();
+  return path ? path.join(process.cwd(), 'data') : '';
+}
+
+function getDataFile(): string {
+  const path = getPath();
+  return path ? path.join(getDataDir(), 'portfolio.json') : '';
+}
+
+function getMessagesFile(): string {
+  const path = getPath();
+  return path ? path.join(getDataDir(), 'messages.json') : '';
+}
+
+function getTmpDir(): string {
+  const path = getPath();
+  return path ? path.join('/tmp', 'data') : '';
+}
+
+function getTmpDataFile(): string {
+  const path = getPath();
+  return path ? path.join(getTmpDir(), 'portfolio.json') : '';
+}
+
+function getTmpMessagesFile(): string {
+  const path = getPath();
+  return path ? path.join(getTmpDir(), 'messages.json') : '';
+}
 
 // Safe directory initialization that never throws
 function ensureDataFile() {
+  const fs = getFs();
+  if (!fs) return;
+
+  const dataDir = getDataDir();
+  const dataFile = getDataFile();
+  const messagesFile = getMessagesFile();
+
   try {
-    if (!fs.existsSync(DATA_DIR)) {
+    if (!fs.existsSync(dataDir)) {
       try {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
+        fs.mkdirSync(dataDir, { recursive: true });
       } catch {
         // Ignored on serverless read-only FS
       }
     }
-    if (!fs.existsSync(DATA_FILE)) {
+    if (!fs.existsSync(dataFile)) {
       try {
-        fs.writeFileSync(DATA_FILE, JSON.stringify(INITIAL_DATA, null, 2), 'utf-8');
+        fs.writeFileSync(dataFile, JSON.stringify(INITIAL_DATA, null, 2), 'utf-8');
       } catch {
         // Ignored on serverless read-only FS
       }
     }
-    if (!fs.existsSync(MESSAGES_FILE)) {
+    if (!fs.existsSync(messagesFile)) {
       try {
-        fs.writeFileSync(MESSAGES_FILE, JSON.stringify([], null, 2), 'utf-8');
+        fs.writeFileSync(messagesFile, JSON.stringify([], null, 2), 'utf-8');
       } catch {
         // Ignored on serverless read-only FS
       }
@@ -46,10 +75,16 @@ function ensureDataFile() {
 
 export function getPortfolioData(): PortfolioData {
   ensureDataFile();
+  const fs = getFs();
+  if (!fs) return INITIAL_DATA;
+
+  const dataFile = getDataFile();
+  const tmpDataFile = getTmpDataFile();
+
   // 1. Try reading from process.cwd()/data/portfolio.json
   try {
-    if (fs.existsSync(DATA_FILE)) {
-      const raw = fs.readFileSync(DATA_FILE, 'utf-8');
+    if (dataFile && fs.existsSync(dataFile)) {
+      const raw = fs.readFileSync(dataFile, 'utf-8');
       const data = JSON.parse(raw);
       return {
         ...INITIAL_DATA,
@@ -64,8 +99,8 @@ export function getPortfolioData(): PortfolioData {
 
   // 2. Try reading from /tmp/data/portfolio.json (for runtime serverless updates)
   try {
-    if (fs.existsSync(TMP_DATA_FILE)) {
-      const raw = fs.readFileSync(TMP_DATA_FILE, 'utf-8');
+    if (tmpDataFile && fs.existsSync(tmpDataFile)) {
+      const raw = fs.readFileSync(tmpDataFile, 'utf-8');
       const data = JSON.parse(raw);
       return {
         ...INITIAL_DATA,
@@ -84,32 +119,49 @@ export function getPortfolioData(): PortfolioData {
 
 export function savePortfolioData(data: PortfolioData): boolean {
   ensureDataFile();
+  const fs = getFs();
+  if (!fs) return false;
+
+  const dataFile = getDataFile();
+  const tmpDir = getTmpDir();
+  const tmpDataFile = getTmpDataFile();
+
   // Try standard path first
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
-    return true;
+    if (dataFile) {
+      fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), 'utf-8');
+      return true;
+    }
   } catch (err) {
     console.warn('Standard save failed (likely read-only serverless environment), trying /tmp fallback:', err);
   }
 
   // Fallback to /tmp on serverless (Vercel)
   try {
-    if (!fs.existsSync(TMP_DIR)) {
-      fs.mkdirSync(TMP_DIR, { recursive: true });
+    if (tmpDir && !fs.existsSync(tmpDir)) {
+      fs.mkdirSync(tmpDir, { recursive: true });
     }
-    fs.writeFileSync(TMP_DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
-    return true;
+    if (tmpDataFile) {
+      fs.writeFileSync(tmpDataFile, JSON.stringify(data, null, 2), 'utf-8');
+      return true;
+    }
   } catch (err) {
     console.error('Save failed on /tmp fallback:', err);
-    return false;
   }
+  return false;
 }
 
 export function getContactMessages(): ContactMessage[] {
   ensureDataFile();
+  const fs = getFs();
+  if (!fs) return [];
+
+  const messagesFile = getMessagesFile();
+  const tmpMessagesFile = getTmpMessagesFile();
+
   try {
-    if (fs.existsSync(MESSAGES_FILE)) {
-      const raw = fs.readFileSync(MESSAGES_FILE, 'utf-8');
+    if (messagesFile && fs.existsSync(messagesFile)) {
+      const raw = fs.readFileSync(messagesFile, 'utf-8');
       return JSON.parse(raw);
     }
   } catch (err) {
@@ -117,8 +169,8 @@ export function getContactMessages(): ContactMessage[] {
   }
 
   try {
-    if (fs.existsSync(TMP_MESSAGES_FILE)) {
-      const raw = fs.readFileSync(TMP_MESSAGES_FILE, 'utf-8');
+    if (tmpMessagesFile && fs.existsSync(tmpMessagesFile)) {
+      const raw = fs.readFileSync(tmpMessagesFile, 'utf-8');
       return JSON.parse(raw);
     }
   } catch (err) {
@@ -139,16 +191,23 @@ export function saveContactMessage(message: Omit<ContactMessage, 'id' | 'created
   };
   messages.unshift(newMessage);
 
-  try {
-    fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf-8');
-  } catch {
+  const fs = getFs();
+  if (fs) {
+    const messagesFile = getMessagesFile();
+    const tmpDir = getTmpDir();
+    const tmpMessagesFile = getTmpMessagesFile();
+
     try {
-      if (!fs.existsSync(TMP_DIR)) {
-        fs.mkdirSync(TMP_DIR, { recursive: true });
+      if (messagesFile) fs.writeFileSync(messagesFile, JSON.stringify(messages, null, 2), 'utf-8');
+    } catch {
+      try {
+        if (tmpDir && !fs.existsSync(tmpDir)) {
+          fs.mkdirSync(tmpDir, { recursive: true });
+        }
+        if (tmpMessagesFile) fs.writeFileSync(tmpMessagesFile, JSON.stringify(messages, null, 2), 'utf-8');
+      } catch (e) {
+        console.error('Failed to save message:', e);
       }
-      fs.writeFileSync(TMP_MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf-8');
-    } catch (e) {
-      console.error('Failed to save message:', e);
     }
   }
 
@@ -161,18 +220,25 @@ export function markMessageRead(id: string): boolean {
   const target = messages.find(m => m.id === id);
   if (target) {
     target.isRead = true;
-    try {
-      fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf-8');
-      return true;
-    } catch {
+    const fs = getFs();
+    if (fs) {
+      const messagesFile = getMessagesFile();
+      const tmpDir = getTmpDir();
+      const tmpMessagesFile = getTmpMessagesFile();
+
       try {
-        if (!fs.existsSync(TMP_DIR)) {
-          fs.mkdirSync(TMP_DIR, { recursive: true });
-        }
-        fs.writeFileSync(TMP_MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf-8');
+        if (messagesFile) fs.writeFileSync(messagesFile, JSON.stringify(messages, null, 2), 'utf-8');
         return true;
-      } catch (e) {
-        console.error('Failed to mark message read:', e);
+      } catch {
+        try {
+          if (tmpDir && !fs.existsSync(tmpDir)) {
+            fs.mkdirSync(tmpDir, { recursive: true });
+          }
+          if (tmpMessagesFile) fs.writeFileSync(tmpMessagesFile, JSON.stringify(messages, null, 2), 'utf-8');
+          return true;
+        } catch (e) {
+          console.error('Failed to mark message read:', e);
+        }
       }
     }
   }
