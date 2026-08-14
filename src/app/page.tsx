@@ -13,35 +13,28 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ResumeViewerModal from '@/components/ResumeViewerModal';
 import { PortfolioData } from '@/lib/types';
+import { INITIAL_DATA } from '@/lib/db';
 
 export default function Home() {
-  const [data, setData] = useState<PortfolioData | null>(null);
+  const [data, setData] = useState<PortfolioData>(INITIAL_DATA);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch('/api/content')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('API request failed');
+        return res.json();
+      })
       .then((resData) => {
-        setData(resData);
-        setLoading(false);
+        if (resData && resData.profile) {
+          setData(resData);
+        }
       })
       .catch((err) => {
-        console.error('Failed to load portfolio data:', err);
-        setLoading(false);
+        console.warn('Using default portfolio data due to network error:', err);
       });
   }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center space-y-4">
-        <div className="w-12 h-12 rounded-full border-4 border-slate-800 border-t-cyan-400 animate-spin"></div>
-        <div className="text-sm font-semibold text-cyan-400 tracking-wider uppercase animate-pulse">
-          Loading Portfolio...
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
@@ -50,11 +43,11 @@ export default function Home() {
       <main>
         <Hero profile={data.profile} onOpenResume={() => setIsResumeOpen(true)} />
         <About profile={data.profile} />
-        <Skills skills={data.skills} />
-        <Projects projects={data.projects} />
-        <Experience experience={data.experience} />
-        <Certifications certifications={data.certifications} />
-        <Education education={data.education} />
+        <Skills skills={data.skills || []} />
+        <Projects projects={data.projects || []} />
+        <Experience experience={data.experience || []} />
+        <Certifications certifications={data.certifications || []} />
+        <Education education={data.education || []} />
         <Contact profile={data.profile} />
       </main>
 
