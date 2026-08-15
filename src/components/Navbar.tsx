@@ -36,11 +36,10 @@ export default function Navbar({ profile, onOpenResume }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: 'About', href: '#about', icon: User },
-    { name: 'Experience', href: '#experience', icon: Briefcase },
     { name: 'Skills', href: '#skills', icon: Code },
-    { name: 'Projects', href: '#projects', icon: Sparkles },
-    { name: 'Certifications', href: '#certifications', icon: Award },
+    { name: 'Experience', href: '#experience', icon: Briefcase },
+    { name: 'AI Music Creation', href: '#projects', icon: Sparkles },
+    { name: 'About', href: '#about', icon: User },
     { name: 'Education', href: '#education', icon: GraduationCap },
     { name: 'Contact', href: '#contact', icon: Mail },
   ];
