@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, FileText, Lock, Sparkles, User, Code, Briefcase, GraduationCap, Award, Mail } from 'lucide-react';
+import { YouTubeIcon, InstagramIcon } from './BrandIcons';
 import { Profile } from '@/lib/types';
 
 interface NavbarProps {
@@ -85,10 +86,32 @@ export default function Navbar({ profile, onOpenResume }: NavbarProps) {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden lg:flex items-center gap-2.5">
+        <div className="hidden lg:flex items-center gap-2">
+          {profile.youtubeUrl && (
+            <a
+              href={profile.youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Team YouTube Channel"
+              className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-red-500 hover:text-red-400 transition-colors"
+            >
+              <YouTubeIcon className="w-4 h-4" />
+            </a>
+          )}
+          {profile.instagramUrl && (
+            <a
+              href={profile.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Team Instagram Page"
+              className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-pink-400 hover:text-pink-300 transition-colors"
+            >
+              <InstagramIcon className="w-4 h-4" />
+            </a>
+          )}
           <button
             onClick={onOpenResume}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all duration-200"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all duration-200"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Resume</span>
@@ -96,9 +119,10 @@ export default function Navbar({ profile, onOpenResume }: NavbarProps) {
           <Link
             href="/admin"
             title="Admin CMS Dashboard"
-            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-cyan-400 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 font-bold text-xs transition-colors"
           >
-            <Lock className="w-4 h-4" />
+            <Lock className="w-3.5 h-3.5" />
+            <span>Admin</span>
           </Link>
         </div>
 
