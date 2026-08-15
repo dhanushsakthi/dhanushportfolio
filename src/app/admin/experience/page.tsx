@@ -69,7 +69,7 @@ export default function ExperienceAdmin() {
       technologies: exp.technologies
     });
     setHighlightsInput(exp.highlights.join('\n'));
-    setTechInput(exp.technologies.join(', '));
+    setTechInput((exp.technologies || []).join(', '));
     setIsModalOpen(true);
   };
 

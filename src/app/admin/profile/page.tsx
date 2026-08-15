@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Save, Upload, User, Mail, Phone, MapPin, FileText, CheckCircle2, AlertCircle, Key } from 'lucide-react';
-import { LinkedInIcon, GitHubIcon } from '@/components/BrandIcons';
+import { Save, Upload, User, Mail, Phone, MapPin, FileText, CheckCircle2, AlertCircle, Key, Clapperboard } from 'lucide-react';
+import { InstagramIcon, YouTubeIcon } from '@/components/BrandIcons';
 import { Profile, SiteSettings } from '@/lib/types';
 
 export default function ProfileAdmin() {
@@ -35,7 +35,7 @@ export default function ProfileAdmin() {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('folderType', 'uploads');
+    formData.append('folderType', 'profile');
 
     try {
       const res = await fetch('/api/upload', {
@@ -45,7 +45,7 @@ export default function ProfileAdmin() {
       const data = await res.json();
       if (data.success) {
         setProfile({ ...profile, photoUrl: data.url });
-        setStatus({ type: 'success', message: 'Profile photo uploaded! Don\'t forget to click Save Changes.' });
+        setStatus({ type: 'success', message: 'Profile photo uploaded to Cloudinary! Click Save All Changes.' });
       }
     } catch (err) {
       setStatus({ type: 'error', message: 'Failed to upload photo.' });
@@ -58,7 +58,7 @@ export default function ProfileAdmin() {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('folderType', 'uploads');
+    formData.append('folderType', 'resume');
 
     try {
       const res = await fetch('/api/upload', {
@@ -68,7 +68,7 @@ export default function ProfileAdmin() {
       const data = await res.json();
       if (data.success) {
         setProfile({ ...profile, resumePdfUrl: data.url });
-        setStatus({ type: 'success', message: 'Resume PDF uploaded! Don\'t forget to click Save Changes.' });
+        setStatus({ type: 'success', message: 'Resume PDF uploaded to Cloudinary! Click Save All Changes.' });
       }
     } catch (err) {
       setStatus({ type: 'error', message: 'Failed to upload resume PDF.' });
@@ -90,7 +90,7 @@ export default function ProfileAdmin() {
       });
       const data = await res.json();
       if (data.success) {
-        setStatus({ type: 'success', message: 'Profile and contact information updated successfully!' });
+        setStatus({ type: 'success', message: 'Director profile updated successfully in Firestore!' });
       } else {
         setStatus({ type: 'error', message: data.message || 'Failed to save changes.' });
       }
@@ -127,19 +127,21 @@ export default function ProfileAdmin() {
   };
 
   if (loading || !profile) {
-    return <div className="py-20 text-center text-slate-400 text-xs animate-pulse">Loading Profile CMS...</div>;
+    return <div className="py-20 text-center text-slate-400 text-xs animate-pulse">Loading Director Profile CMS...</div>;
   }
 
   return (
-    <div className="space-y-8 animate-fadeIn max-w-4xl">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+    <div className="space-y-8 animate-fadeIn max-w-4xl pb-16">
+      
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
         <div>
-          <h1 className="text-2xl font-extrabold text-white flex items-center gap-2">
+          <h1 className="text-2xl font-black text-white flex items-center gap-2">
             <User className="w-6 h-6 text-cyan-400" />
-            <span>Profile & Resume Management</span>
+            <span>Director Profile & Vision CMS</span>
           </h1>
           <p className="text-xs text-slate-400">
-            Manage your headline, about summary, contact details, profile image, and resume PDF
+            Manage Director Statement, Headshot, Biography, and Portfolio Contacts
           </p>
         </div>
 
@@ -168,21 +170,20 @@ export default function ProfileAdmin() {
 
       <form onSubmit={handleSave} className="space-y-8">
         
-        {/* Media Assets Section */}
+        {/* Media & Headshot */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-6">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
-            Media & File Management
+          <h2 className="text-xs font-black uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
+            Director Photo & Resume (Cloudinary Storage)
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            {/* Photo Uploader */}
             <div className="space-y-3">
-              <label className="block text-xs font-semibold text-slate-300">Profile Photo</label>
+              <label className="block text-xs font-semibold text-slate-300">Director Headshot Photo</label>
               <div className="flex items-center gap-4">
                 <div className="relative w-20 h-24 rounded-xl overflow-hidden bg-slate-950 border border-slate-700">
                   {profile.photoUrl ? (
-                    <Image src={profile.photoUrl} alt="Preview" fill className="object-cover" />
+                    <img src={profile.photoUrl} alt="Preview" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-600 text-xs">No Photo</div>
                   )}
@@ -190,17 +191,16 @@ export default function ProfileAdmin() {
                 <div className="flex-1 space-y-2">
                   <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 cursor-pointer transition-colors">
                     <Upload className="w-4 h-4 text-cyan-400" />
-                    <span>Upload New Photo</span>
+                    <span>Upload Headshot</span>
                     <input type="file" accept="image/*" onChange={handlePhotoUpload} className="hidden" />
                   </label>
-                  <p className="text-[11px] text-slate-400">JPG, PNG or WEBP (Max 10MB)</p>
+                  <p className="text-[11px] text-slate-400">Cloudinary auto-optimized delivery</p>
                 </div>
               </div>
             </div>
 
-            {/* Resume Uploader */}
             <div className="space-y-3">
-              <label className="block text-xs font-semibold text-slate-300">Resume PDF File</label>
+              <label className="block text-xs font-semibold text-slate-300">Director Portfolio PDF / Filmography Resume</label>
               <div className="space-y-2">
                 {profile.resumePdfUrl && (
                   <a
@@ -210,14 +210,14 @@ export default function ProfileAdmin() {
                     className="inline-flex items-center gap-2 text-xs text-cyan-400 hover:underline font-semibold bg-cyan-500/10 px-3 py-1.5 rounded-lg border border-cyan-500/20"
                   >
                     <FileText className="w-4 h-4" />
-                    <span>View Current Resume PDF</span>
+                    <span>View Current PDF</span>
                   </a>
                 )}
 
                 <div>
                   <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 cursor-pointer transition-colors">
                     <Upload className="w-4 h-4 text-emerald-400" />
-                    <span>Upload & Replace Resume PDF</span>
+                    <span>Upload New PDF</span>
                     <input type="file" accept="application/pdf" onChange={handleResumeUpload} className="hidden" />
                   </label>
                 </div>
@@ -227,28 +227,28 @@ export default function ProfileAdmin() {
           </div>
         </div>
 
-        {/* Profile Info Section */}
+        {/* Director Bio & Statement */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
-            Personal Information & Headline
+          <h2 className="text-xs font-black uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
+            Director Persona & Statement
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Full Name</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">Director Full Name</label>
               <input
                 type="text"
-                value={profile.name}
+                value={profile.name || ''}
                 onChange={(e) => setProfile({ ...profile, name: e.target.value })}
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Professional Headline</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">Professional Title / Role</label>
               <input
                 type="text"
-                value={profile.headline}
+                value={profile.headline || ''}
                 onChange={(e) => setProfile({ ...profile, headline: e.target.value })}
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
@@ -256,20 +256,31 @@ export default function ProfileAdmin() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Hero Tagline</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">Director Statement / Vision</label>
             <input
               type="text"
-              value={profile.tagline}
+              value={profile.directorStatement || ''}
+              onChange={(e) => setProfile({ ...profile, directorStatement: e.target.value })}
+              placeholder="Filmmaking to me is the delicate art of capturing truth..."
+              className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">Short Tagline</label>
+            <input
+              type="text"
+              value={profile.tagline || ''}
               onChange={(e) => setProfile({ ...profile, tagline: e.target.value })}
               className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">About Bio / Professional Summary</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">Full Biography</label>
             <textarea
               rows={5}
-              value={profile.about}
+              value={profile.about || ''}
               onChange={(e) => setProfile({ ...profile, about: e.target.value })}
               className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none resize-none"
             />
@@ -278,16 +289,16 @@ export default function ProfileAdmin() {
 
         {/* Contact & Social Links */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
-            Contact & Social URLs
+          <h2 className="text-xs font-black uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
+            Contact & Filmmaker Channels
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Email</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">Email Address</label>
               <input
                 type="email"
-                value={profile.email}
+                value={profile.email || ''}
                 onChange={(e) => setProfile({ ...profile, email: e.target.value })}
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
@@ -297,7 +308,7 @@ export default function ProfileAdmin() {
               <label className="block text-xs font-semibold text-slate-400 mb-1">Phone Number</label>
               <input
                 type="text"
-                value={profile.phone}
+                value={profile.phone || ''}
                 onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
@@ -307,7 +318,7 @@ export default function ProfileAdmin() {
               <label className="block text-xs font-semibold text-slate-400 mb-1">Location</label>
               <input
                 type="text"
-                value={profile.location}
+                value={profile.location || ''}
                 onChange={(e) => setProfile({ ...profile, location: e.target.value })}
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
@@ -316,21 +327,23 @@ export default function ProfileAdmin() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">LinkedIn Profile URL</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">Instagram URL</label>
               <input
                 type="text"
-                value={profile.linkedInUrl}
-                onChange={(e) => setProfile({ ...profile, linkedInUrl: e.target.value })}
+                value={profile.instagramUrl || ''}
+                onChange={(e) => setProfile({ ...profile, instagramUrl: e.target.value })}
+                placeholder="https://instagram.com/dhanush_director"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">GitHub Profile URL</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">YouTube Channel URL</label>
               <input
                 type="text"
-                value={profile.githubUrl}
-                onChange={(e) => setProfile({ ...profile, githubUrl: e.target.value })}
+                value={profile.youtubeUrl || ''}
+                onChange={(e) => setProfile({ ...profile, youtubeUrl: e.target.value })}
+                placeholder="https://youtube.com/@dhanushfilms"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
             </div>
@@ -341,9 +354,9 @@ export default function ProfileAdmin() {
 
       {/* Admin Password Change Form */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-3 flex items-center gap-2">
+        <h2 className="text-xs font-black uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-3 flex items-center gap-2">
           <Key className="w-4 h-4" />
-          <span>Change Admin Password</span>
+          <span>Change Security Password</span>
         </h2>
 
         {passwordStatus && (

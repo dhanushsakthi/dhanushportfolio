@@ -6,6 +6,7 @@ import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
+import AwardsSection from '@/components/AwardsSection';
 import Experience from '@/components/Experience';
 import Certifications from '@/components/Certifications';
 import Education from '@/components/Education';
@@ -44,6 +45,7 @@ export default function Home() {
         <About profile={data.profile} />
         <Skills skills={data.skills || []} />
         <Projects projects={data.projects || []} />
+        <AwardsSection awards={data.awards || []} />
         <Experience experience={data.experience || []} />
         <Certifications certifications={data.certifications || []} />
         <Education education={data.education || []} />

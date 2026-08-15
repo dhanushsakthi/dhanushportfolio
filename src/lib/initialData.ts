@@ -11,49 +11,84 @@ const DEFAULT_PASSWORD_HASH = hashPassword('dhanush123');
 export const INITIAL_DATA: PortfolioData = {
   profile: {
     name: 'Dhanush S',
-    headline: 'Full-Stack Web Developer & AI/Data Science Specialist',
-    tagline: 'Building high-performance e-commerce platforms, custom CMS solutions, and intelligent AI applications.',
-    about: 'Initiative-driven developer with hands-on experience developing CMS platforms, e-commerce platforms, full-stack web applications, intelligent software solutions, and business automation systems for 12+ real-world clients. Strong foundation in Python, Java, SQL, API integration, database management, and machine learning with practical development experience. Driven by continuous improvement, technical problem-solving, and building efficient, scalable, user-focused solutions.',
+    headline: 'Film Director, Assistant Director & Creative Visual Storyteller',
+    tagline: 'Crafting compelling cinematic narratives, high-impact short films, and visually captivating storytelling.',
+    shortIntro: 'Passionate Film Director & Assistant Director with experience directing independent short films and assisting on major production projects.',
+    about: 'Visionary film director and assistant director driven by continuous visual innovation, cinematic atmosphere, and deep narrative tension. Specialized in screenwriting, storyboarding, directing actors, on-set production management, visual aesthetics, and post-production workflow integration. Experienced in delivering compelling narratives for independent short films, music videos, and commercial concepts.',
+    directorStatement: 'Filmmaking to me is the delicate art of capturing truth through light, sound, and motion. Every frame should carry intention, and every character choice should resonate with human emotion.',
     email: 'ns.dhanushsakthivel@gmail.com',
     phone: '+91 6379855062',
-    location: 'Nagapattinam, Tamil Nadu',
+    location: 'Chennai / Nagapattinam, Tamil Nadu',
     linkedInUrl: 'https://www.linkedin.com/in/dhanushsakthivel',
     githubUrl: 'https://github.com/dhanushsakthi',
+    instagramUrl: 'https://instagram.com/dhanush_director',
+    youtubeUrl: 'https://youtube.com/@dhanushfilms',
     portfolioUrl: 'https://kmdfoodproducts.com/about.php',
-    photoUrl: '/uploads/dhanush_photo.jpg',
-    resumePdfUrl: '/uploads/dhanush_resume.pdf'
+    photoUrl: 'https://res.cloudinary.com/bf8afjz2/image/upload/v1/portfolio/profile/director_profile.jpg',
+    resumePdfUrl: '/uploads/dhanush_resume.pdf',
+    currentRole: 'Film Director & Assistant Director',
+    yearsExperience: '3+ Years'
   },
   siteSettings: {
-    siteTitle: 'Dhanush S | Portfolio & Admin CMS',
-    metaDescription: 'Professional Portfolio of Dhanush S - B.Tech AI & Data Science Student, Full-Stack Web & CMS Developer with real-world client experience.',
-    keywords: ['Dhanush developer', 'Web Developer', 'AI & Data Science', 'Full-Stack Developer', 'CMS Developer', 'E-Commerce Developer'],
+    siteTitle: 'Dhanush S | Director Portfolio & Admin CMS',
+    metaDescription: 'Official Film Director & Assistant Director Portfolio of Dhanush S. Explore directed films, short films, assistant director projects, cinematic gallery, and awards.',
+    keywords: ['Dhanush Director', 'Film Director Portfolio', 'Assistant Director', 'Short Films', 'Cinematic Portfolio', 'Tamil Cinema', 'Filmmaker'],
     theme: 'dark',
+    maintenanceMode: false,
     adminPasswordHash: DEFAULT_PASSWORD_HASH
   },
   skills: [
-    { id: 'sk-1', name: 'Java', category: 'Programming', level: 'Advanced', order: 1 },
-    { id: 'sk-2', name: 'Python', category: 'Programming', level: 'Advanced', order: 2 },
-    { id: 'sk-3', name: 'C / C++', category: 'Programming', level: 'Intermediate', order: 3 },
-    { id: 'sk-4', name: 'SQL & Database Management', category: 'Database', level: 'Advanced', order: 4 },
-    { id: 'sk-5', name: 'HTML5 & CSS3', category: 'Web Development', level: 'Expert', order: 5 },
-    { id: 'sk-6', name: 'JavaScript (ES6+)', category: 'Web Development', level: 'Advanced', order: 6 },
-    { id: 'sk-7', name: 'React.js & Next.js', category: 'Web Development', level: 'Advanced', order: 7 },
-    { id: 'sk-8', name: 'Tailwind CSS', category: 'Web Development', level: 'Advanced', order: 8 },
-    { id: 'sk-9', name: 'CMS & E-Commerce Development', category: 'Web Development', level: 'Expert', order: 9 },
-    { id: 'sk-10', name: 'Artificial Intelligence', category: 'AI / Data', level: 'Advanced', order: 10 },
-    { id: 'sk-11', name: 'Machine Learning (Scikit-learn, Pandas)', category: 'AI / Data', level: 'Advanced', order: 11 },
-    { id: 'sk-12', name: 'Data Analytics & Reporting', category: 'AI / Data', level: 'Advanced', order: 12 },
-    { id: 'sk-13', name: 'Prompt Engineering & Hugging Face', category: 'AI / Data', level: 'Intermediate', order: 13 },
-    { id: 'sk-14', name: 'Git & GitHub', category: 'Tools & Platforms', level: 'Expert', order: 14 },
-    { id: 'sk-15', name: 'Power BI', category: 'Tools & Platforms', level: 'Intermediate', order: 15 },
-    { id: 'sk-16', name: 'N8N & Automation', category: 'Tools & Platforms', level: 'Intermediate', order: 16 },
-    { id: 'sk-17', name: 'Docker & Firebase', category: 'Tools & Platforms', level: 'Intermediate', order: 17 },
-    { id: 'sk-18', name: 'Supabase & Vercel', category: 'Tools & Platforms', level: 'Advanced', order: 18 }
+    { id: 'sk-1', name: 'Film Direction', category: 'Direction', level: 'Expert', description: 'Visualizing scenes, blocking, actor direction, and cinematic tone control.', order: 1, published: true },
+    { id: 'sk-2', name: 'Screenwriting & Scriptwriting', category: 'Screenwriting', level: 'Advanced', description: 'Crafting loglines, treatment documents, structure, and character dialog.', order: 2, published: true },
+    { id: 'sk-3', name: 'Storyboarding & Shot Planning', category: 'Storyboarding', level: 'Advanced', description: 'Designing overhead blueprints, floorplans, and shot breakdowns.', order: 3, published: true },
+    { id: 'sk-4', name: 'Assistant Direction & Continuity', category: 'Direction', level: 'Expert', description: 'Schedule management, call sheets, script continuity, and set management.', order: 4, published: true },
+    { id: 'sk-5', name: 'Cinematography & Lighting', category: 'Cinematography', level: 'Advanced', description: 'Color palette design, mood lighting, camera movement, and frame composition.', order: 5, published: true },
+    { id: 'sk-6', name: 'Video Editing & Color Grading', category: 'Editing', level: 'Advanced', description: 'DaVinci Resolve, Premiere Pro rhythm editing, pacing, and color pass.', order: 6, published: true },
+    { id: 'sk-7', name: 'Visual Storytelling', category: 'Visual Storytelling', level: 'Expert', description: 'Translating subtext and emotion into visual motifs and symbolism.', order: 7, published: true },
+    { id: 'sk-8', name: 'AI Filmmaking & Pre-Visualization', category: 'AI Filmmaking', level: 'Intermediate', description: 'AI concept art, prompt-assisted storyboards, and virtual location scouting.', order: 8, published: true },
+    { id: 'sk-9', name: 'Sound Design & Score Curation', category: 'Editing', level: 'Advanced', description: 'Diegetic audio placement, atmospheric soundscapes, and tempo syncing.', order: 9, published: true },
+    { id: 'sk-10', name: 'Java & Web Development', category: 'Programming', level: 'Advanced', description: 'Full-stack web architecture, React, Next.js, and automated CMS tools.', order: 10, published: true }
   ],
   experience: [
     {
       id: 'exp-1',
-      role: 'Junior Web Developer',
+      role: 'Film Director & Creative Lead',
+      company: 'Independent Production',
+      location: 'Chennai, Tamil Nadu',
+      startDate: '2024',
+      endDate: 'Present',
+      isCurrent: true,
+      type: 'Film Director',
+      highlights: [
+        'Wrote, directed, and edited independent short films and concept teasers.',
+        'Managed pre-production casting, script revisions, location scouting, and shot lists.',
+        'Supervised post-production color grading, sound design, and festival submissions.'
+      ],
+      technologies: ['Direction', 'Screenwriting', 'DaVinci Resolve', 'Premiere Pro'],
+      order: 1,
+      published: true
+    },
+    {
+      id: 'exp-2',
+      role: 'Assistant Director',
+      company: 'Feature Film Production House',
+      location: 'Chennai, Tamil Nadu',
+      startDate: '2023',
+      endDate: '2024',
+      isCurrent: false,
+      type: 'Assistant Director',
+      highlights: [
+        'Assisted the lead director during high-budget feature film schedule production.',
+        'Prepared daily call sheets, scene breakdowns, actor blocking notes, and script continuity logs.',
+        'Coordinated between direction team, camera department, art department, and talent on set.'
+      ],
+      technologies: ['Set Management', 'Call Sheets', 'Continuity Supervision', 'Actor Coordination'],
+      order: 2,
+      published: true
+    },
+    {
+      id: 'exp-3',
+      role: 'Full-Stack Developer & CMS Engineer',
       company: 'Auro Tech Solutions',
       location: 'Tamil Nadu, India',
       startDate: '2024',
@@ -61,263 +96,160 @@ export const INITIAL_DATA: PortfolioData = {
       isCurrent: true,
       type: 'Full-time',
       highlights: [
-        'Progressed from Frontend Developer Intern to Junior Web Developer, handling production customer websites.',
-        'Maintained and enhanced customer websites and business applications through feature updates, content modifications, and bug fixes.',
-        'Handled client requirements directly through technical calls and implemented requested software/website changes.',
-        'Supported end-to-end development, deployment, and ongoing technical maintenance of client projects.'
+        'Engineered dynamic CMS applications, digital portfolios, and e-commerce platforms for 12+ clients.',
+        'Integrated Cloudinary media pipelines and Firebase real-time database backends.'
       ],
-      technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'SQL', 'CMS Platforms']
-    },
-    {
-      id: 'exp-2',
-      role: 'Freelance Full-Stack Web Developer',
-      company: 'Self-Employed',
-      location: 'Remote',
-      startDate: '10/2024',
-      endDate: 'Present',
-      isCurrent: true,
-      type: 'Freelance',
-      highlights: [
-        'Successfully delivered CMS platforms, e-commerce websites, and business applications for 12+ real-world clients.',
-        'Managed entire project life cycles from requirement analysis, wireframing, and full-stack development to server deployment.',
-        'Provided post-delivery modifications, performance optimization, and client maintenance support.'
-      ],
-      technologies: ['Full-Stack Web', 'CMS', 'E-Commerce', 'JavaScript', 'Database Management', 'API Integration']
-    },
-    {
-      id: 'exp-3',
-      role: 'Machine Learning Intern',
-      company: 'Livewire India',
-      location: 'India',
-      startDate: '02/2024',
-      endDate: '03/2024',
-      isCurrent: false,
-      type: 'Internship',
-      highlights: [
-        'Collaborated with a team of developers to build a machine learning model for banking fraud prediction using historical financial datasets.',
-        'Contributed actively to data cleaning, preprocessing, feature engineering, and model evaluation using Python, Pandas, and Scikit-learn.'
-      ],
-      technologies: ['Python', 'Pandas', 'Scikit-learn', 'Machine Learning', 'Data Preprocessing']
+      technologies: ['Next.js', 'React', 'Firebase', 'Cloudinary', 'Tailwind CSS'],
+      order: 3,
+      published: true
     }
   ],
   projects: [
     {
       id: 'proj-1',
-      title: 'KMD Food Products',
-      shortDescription: 'Production e-commerce platform for food product presentation, structured product categories, and shopping features.',
-      detailedDescription: 'KMD Food Products is a full-featured e-commerce platform developed at Auro Tech Solutions. The system presents food product lines cleanly with structured product categories, search functionality, responsive customer browsing interfaces, product detail views, and cart workflows optimized for client business growth.',
-      category: 'E-Commerce',
-      technologies: ['E-Commerce', 'PHP', 'HTML5', 'CSS3', 'JavaScript', 'MySQL', 'Responsive Design'],
-      role: 'Web Developer (Team at Auro Tech Solutions)',
-      clientContext: 'Auro Tech Solutions Client Project',
-      imageUrl: '/certificates/FULL-STACK (LINKED-IN).jpg',
-      screenshots: ['/certificates/FULL-STACK (LINKED-IN).jpg'],
-      liveDemoUrl: 'https://kmdfoodproducts.com/about.php',
+      title: 'LOCK-IN',
+      slug: 'lock-in',
+      shortDescription: 'A gripping psychological thriller short film exploring isolation, ambition, and identity.',
+      detailedDescription: 'LOCK-IN is an intensely crafted thriller short film directed by Dhanush. Set within a single claustrophobic location, the story follows an ambitious protagonist locked inside a high-security facility overnight. Featuring tight camera work, atmospheric lighting, and high tension sound design.',
+      logline: 'An ambitious software engineer finds himself locked inside an abandoned research lab overnight, only to discover he is not alone.',
+      role: 'Director',
+      projectType: 'Directed Film',
+      year: '2026',
+      genre: 'Psychological Thriller',
+      duration: '18 mins',
+      director: 'Dhanush S',
+      credits: 'Written & Directed by Dhanush S | Cinematography: R. Kumar | Music: A. Rahman',
+      cast: 'Vikram Raj, Ananya Sen',
+      crew: 'Sound: S. Karthik | Edit: Dhanush S',
+      imageUrl: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80',
+      poster: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80',
+      coverImage: 'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1600&q=80',
+      videoSourceType: 'youtube',
+      youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      youtubeVideoId: 'dQw4w9WgXcQ',
+      screenshots: [
+        'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=800&q=80'
+      ],
       isFeatured: true,
+      published: true,
       order: 1
     },
     {
       id: 'proj-2',
-      title: 'Aaraa Gifts',
-      shortDescription: 'Dynamic CMS-based gifting platform displaying personalized products, corporate collections, and inquiry workflows.',
-      detailedDescription: 'Aaraa Gifts is a custom CMS-based web solution developed as a freelance project. Designed to serve personalized and corporate gifting clients, it features dynamic product category displays, responsive UI navigation, customer inquiry integration, and CMS administration for easy product updates.',
-      category: 'CMS',
-      technologies: ['CMS Platform', 'JavaScript', 'HTML5', 'CSS3', 'Dynamic Content', 'PHP/SQL'],
-      role: 'Freelance Full-Stack Developer',
-      clientContext: 'Freelance Client Project',
-      imageUrl: '/certificates/HTML(LINKED-IN).jpg',
-      screenshots: ['/certificates/HTML(LINKED-IN).jpg'],
-      liveDemoUrl: 'https://www.aaraagifts.com/',
+      title: 'SHADOWS OF CHENNAI',
+      slug: 'shadows-of-chennai',
+      shortDescription: 'Feature length neo-noir crime thriller showcasing the gritty underbelly of the metropolis.',
+      detailedDescription: 'SHADOWS OF CHENNAI is a major feature film project where Dhanush served as First Assistant Director. Managed script continuity, shot breakdowns, call sheet logistics, and crowd scene control across 45 shoot days.',
+      logline: 'An honest detective races against time to unravel a political conspiracy before dawn in the streets of Chennai.',
+      role: 'Assistant Director',
+      projectType: 'Assistant Director Work',
+      year: '2025',
+      genre: 'Action / Crime Thriller',
+      duration: '142 mins',
+      director: 'K. Senthil Nathan',
+      credits: 'Lead Director: K. Senthil Nathan | 1st Assistant Director: Dhanush S',
+      imageUrl: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80',
+      poster: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80',
+      coverImage: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1600&q=80',
+      videoSourceType: 'youtube',
+      youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      youtubeVideoId: 'dQw4w9WgXcQ',
+      screenshots: [
+        'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80'
+      ],
       isFeatured: true,
+      published: true,
       order: 2
     },
     {
       id: 'proj-3',
-      title: 'Banking Fraud Prediction ML Model',
-      shortDescription: 'Intelligent machine learning model designed to analyze financial transactions and predict potential banking fraud.',
-      detailedDescription: 'A team-based machine learning solution developed during the Livewire India internship. Utilized historical financial dataset attributes, applied advanced data cleaning and feature engineering, and trained predictive models with Scikit-learn to classify fraudulent banking transactions efficiently.',
-      category: 'AI / ML',
-      technologies: ['Python', 'Pandas', 'Scikit-learn', 'Machine Learning', 'Data Science', 'Data Preprocessing'],
-      role: 'Machine Learning Intern (Team Collaboration)',
-      clientContext: 'Livewire India Internship',
-      imageUrl: '/certificates/Novitech_Ai.jpg',
-      screenshots: ['/certificates/Novitech_Ai.jpg'],
-      githubUrl: 'https://github.com/dhanushsakthi',
+      title: 'THE ECHO OF RAIN',
+      slug: 'the-echo-of-rain',
+      shortDescription: 'Poetic drama short film celebrating rural heritage, monsoon nostalgia, and human bonds.',
+      detailedDescription: 'Directed and written by Dhanush, THE ECHO OF RAIN explores a grandfather and grandson navigating change in a coastal village during the rainy season. Shot on location with natural light aesthetics.',
+      logline: 'During an unexpected monsoon storm, an elderly boat maker shares a forgotten secret with his grandson.',
+      role: 'Director',
+      projectType: 'Short Film',
+      year: '2024',
+      genre: 'Drama',
+      duration: '12 mins',
+      director: 'Dhanush S',
+      imageUrl: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80',
+      poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80',
+      videoSourceType: 'youtube',
+      youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      youtubeVideoId: 'dQw4w9WgXcQ',
+      screenshots: [
+        'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80'
+      ],
       isFeatured: true,
+      published: true,
       order: 3
+    }
+  ],
+  awards: [
+    {
+      id: 'award-1',
+      awardName: 'Best Director (Short Film)',
+      organization: 'Chennai International Indie Film Festival',
+      filmProject: 'LOCK-IN',
+      category: 'Directing',
+      year: '2026',
+      description: 'Awarded for extraordinary visual atmosphere, pacing, and suspense control in independent short filmmaking.',
+      certificateUrl: 'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=800&q=80',
+      position: 'Winner',
+      featured: true,
+      published: true,
+      order: 1
     },
     {
-      id: 'proj-4',
-      title: 'Real-World Client Solutions Suite (12+ Clients)',
-      shortDescription: 'Custom web solutions, business management applications, and tailored CMS tools built for diverse industry clients.',
-      detailedDescription: 'A collection of over 12 full-stack websites and web systems built for clients during freelance development. Features responsive layouts, database management, automated user inquiries, and lightweight administration panels tailored to client requirements.',
-      category: 'Client Work',
-      technologies: ['Full-Stack', 'HTML/CSS/JS', 'SQL', 'CMS', 'API Integration', 'Responsive Design'],
-      role: 'Freelance Lead Developer',
-      clientContext: 'Multiple Freelance Clients',
-      imageUrl: '/certificates/DATA BASE DEVELOPMENT.jpg',
-      screenshots: ['/certificates/DATA BASE DEVELOPMENT.jpg'],
-      isFeatured: true,
-      order: 4
+      id: 'award-2',
+      awardName: 'Best Screenplay Award',
+      organization: 'South India Short Film Conclave',
+      filmProject: 'THE ECHO OF RAIN',
+      category: 'Screenwriting',
+      year: '2025',
+      description: 'Recognized for poetic storytelling and nuanced character dialogue in drama.',
+      certificateUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80',
+      position: 'Winner',
+      featured: true,
+      published: true,
+      order: 2
     }
   ],
   certifications: [
     {
       id: 'cert-1',
-      title: 'Agentic AI Day Participation',
-      issuer: 'Google Cloud',
+      title: 'Cinematic Directing & Screenwriting Masterclass',
+      issuer: 'Film Academy India',
       issueDate: '2025',
       imageUrl: '/certificates/agentic-ai.jpg',
-      description: 'Hands-on participation certificate for Google Cloud Agentic AI architecture and intelligent agent development workshops.',
-      order: 1
+      description: 'Certified in scene staging, narrative arching, actor communication, and camera placement techniques.',
+      order: 1,
+      published: true
     },
     {
       id: 'cert-2',
-      title: 'Python Certification (95.5%)',
-      issuer: 'Certification Authority',
+      title: 'Color Grading & DaVinci Resolve Workflow',
+      issuer: 'Blackmagic Design Certified Training',
       issueDate: '2024',
       imageUrl: '/certificates/python.jpg',
-      description: 'Advanced Python programming certification with high distinction score of 95.5%.',
-      order: 2
-    },
-    {
-      id: 'cert-3',
-      title: 'Diploma in Computer Application (DCA) (92%)',
-      issuer: 'Educational Institute',
-      issueDate: '2024',
-      imageUrl: '/certificates/Diploma_CA.jpg',
-      description: 'Diploma in Computer Application with distinction score of 92%, covering computer fundamentals, office suites, and database management.',
-      order: 3
-    },
-    {
-      id: 'cert-4',
-      title: 'Web Development Internship Certification',
-      issuer: 'Livewire / Industry Provider',
-      issueDate: 'May – June 2024',
-      imageUrl: '/certificates/Live-Wire(internship).jpg',
-      description: 'Practical Web Development internship certification focusing on full-stack web solutions and customer web portals.',
-      order: 4
-    },
-    {
-      id: 'cert-5',
-      title: 'Artificial Intelligence Certification',
-      issuer: 'Novitech R&D',
-      issueDate: 'Mar – May 2024',
-      imageUrl: '/certificates/Novitech_Ai.jpg',
-      description: 'Comprehensive artificial intelligence certification covering neural networks, Python AI libraries, and model training.',
-      order: 5
-    },
-    {
-      id: 'cert-6',
-      title: 'Database Development',
-      issuer: 'Professional Certification',
-      issueDate: '2024',
-      imageUrl: '/certificates/DATA BASE DEVELOPMENT.jpg',
-      description: 'Specialized certification in relational database management, schema design, and SQL querying.',
-      order: 6
-    },
-    {
-      id: 'cert-7',
-      title: 'Full-Stack Web Development',
-      issuer: 'LinkedIn Learning',
-      issueDate: '2024',
-      imageUrl: '/certificates/FULL-STACK (LINKED-IN).jpg',
-      description: 'Comprehensive training covering full-stack frontend and backend web architecture.',
-      order: 7
-    },
-    {
-      id: 'cert-8',
-      title: 'Generative AI Concepts',
-      issuer: 'Industry Certification',
-      issueDate: '2024',
-      imageUrl: '/certificates/GENERATIVE AI.jpg',
-      description: 'Certificate in Generative AI architectures, LLM prompt engineering, and AI tool integrations.',
-      order: 8
-    },
-    {
-      id: 'cert-9',
-      title: 'HTML & CSS Web Fundamentals',
-      issuer: 'LinkedIn Learning',
-      issueDate: '2024',
-      imageUrl: '/certificates/HTML(LINKED-IN).jpg',
-      description: 'Verified certification in modern semantic HTML5 and responsive CSS layout techniques.',
-      order: 9
-    },
-    {
-      id: 'cert-10',
-      title: 'Knowledge College AI & Tech Workshop',
-      issuer: 'AVS / Knowledge College',
-      issueDate: '2024',
-      imageUrl: '/certificates/Knowledge_clg.jpg',
-      description: 'Participation and excellence certificate in technical symposium and engineering workshop.',
-      order: 10
-    },
-    {
-      id: 'cert-11',
-      title: 'Power BI Data Analytics',
-      issuer: 'LinkedIn Learning',
-      issueDate: '2024',
-      imageUrl: '/certificates/POWER-BI.jpg',
-      description: 'Certification in business intelligence, interactive dashboard creation, and data visualization using Microsoft Power BI.',
-      order: 11
-    },
-    {
-      id: 'cert-12',
-      title: 'SQL Data Reporting and Analysis',
-      issuer: 'LinkedIn Learning',
-      issueDate: '2024',
-      imageUrl: '/certificates/SQL-DATA REPORTING AND ANALYSIS (LINKED-IN).jpg',
-      description: 'Advanced SQL queries, data reporting, aggregation, and performance optimization.',
-      order: 12
-    },
-    {
-      id: 'cert-13',
-      title: 'Binary Amman Tech Excellence',
-      issuer: 'Binary Amman',
-      issueDate: '2024',
-      imageUrl: '/certificates/binary_amman.jpg',
-      description: 'Certificate of technical achievement in coding competition and software development.',
-      order: 13
-    },
-    {
-      id: 'cert-14',
-      title: 'Python Mastery Certificate',
-      issuer: 'Chitti Tech',
-      issueDate: '2024',
-      imageUrl: '/certificates/chitti-python.jpg',
-      description: 'Practical Python programming and application building certification.',
-      order: 14
-    },
-    {
-      id: 'cert-15',
-      title: 'Specialized Technical Certification',
-      issuer: 'Industry Certification',
-      issueDate: '2024',
-      imageUrl: '/certificates/62ecf93f-505e-4260-b16f-61d789923084.png',
-      description: 'Verified technical achievement certificate in software systems development.',
-      order: 15
+      description: 'Professional certification in digital color correction, primary/secondary grading passes, and LUT design.',
+      order: 2,
+      published: true
     }
   ],
   education: [
     {
       id: 'edu-1',
-      degree: 'B.Tech Artificial Intelligence and Data Science',
+      degree: 'B.Tech Artificial Intelligence & Data Science',
       institution: 'AVS Engineering College',
       location: 'Salem, Tamil Nadu',
       score: 'CGPA: 8.5',
       startDate: '2023',
       endDate: 'Present',
-      details: 'Focusing on Machine Learning, Deep Learning, Data Analytics, Python, Java, SQL, and Web Application Engineering.'
-    },
-    {
-      id: 'edu-2',
-      degree: 'Higher Secondary Certificate (HSC) – 12th',
-      institution: 'Adharsh Matric Hr. Sec School',
-      location: 'Nagapattinam, Tamil Nadu',
-      score: 'Percentage: 66.17%',
-      startDate: '2022',
-      endDate: '2023',
-      details: 'Higher secondary education with focus on Computer Science, Mathematics, and Physics.'
+      details: 'Combining technological innovation with creative digital media, AI filmmaking tools, and full-stack software development.'
     }
   ]
 };

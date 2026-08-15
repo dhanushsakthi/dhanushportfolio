@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server';
-import { getPortfolioData, savePortfolioData } from '@/lib/db';
+import { getPortfolioDataAsync, savePortfolioDataAsync } from '@/lib/db';
 import { checkAdminSession } from '@/lib/auth';
 import { Skill } from '@/lib/types';
+
+export async function GET() {
+  const data = await getPortfolioDataAsync();
+  return NextResponse.json({ success: true, skills: data.skills || [] });
+}
 
 export async function POST(req: Request) {
   const isAuth = await checkAdminSession();
@@ -9,17 +14,19 @@ export async function POST(req: Request) {
 
   try {
     const skillData: Omit<Skill, 'id'> = await req.json();
-    const data = getPortfolioData();
+    const data = await getPortfolioDataAsync();
     const newSkill: Skill = {
       ...skillData,
       id: 'sk-' + Date.now(),
-      order: data.skills.length + 1
+      published: skillData.published ?? true,
+      order: skillData.order || ((data.skills?.length || 0) + 1)
     };
+    if (!data.skills) data.skills = [];
     data.skills.push(newSkill);
-    savePortfolioData(data);
+    await savePortfolioDataAsync(data);
     return NextResponse.json({ success: true, skill: newSkill });
-  } catch (err) {
-    return NextResponse.json({ success: false, message: 'Failed to add skill' }, { status: 500 });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, message: err?.message || 'Failed to add skill' }, { status: 500 });
   }
 }
 
@@ -29,16 +36,17 @@ export async function PUT(req: Request) {
 
   try {
     const updatedSkill: Skill = await req.json();
-    const data = getPortfolioData();
+    const data = await getPortfolioDataAsync();
+    if (!data.skills) data.skills = [];
     const index = data.skills.findIndex(s => s.id === updatedSkill.id);
     if (index !== -1) {
       data.skills[index] = updatedSkill;
-      savePortfolioData(data);
+      await savePortfolioDataAsync(data);
       return NextResponse.json({ success: true, skill: updatedSkill });
     }
     return NextResponse.json({ success: false, message: 'Skill not found' }, { status: 404 });
-  } catch (err) {
-    return NextResponse.json({ success: false, message: 'Failed to update skill' }, { status: 500 });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, message: err?.message || 'Failed to update skill' }, { status: 500 });
   }
 }
 
@@ -51,11 +59,13 @@ export async function DELETE(req: Request) {
     const id = searchParams.get('id');
     if (!id) return NextResponse.json({ success: false, message: 'Skill ID required' }, { status: 400 });
 
-    const data = getPortfolioData();
-    data.skills = data.skills.filter(s => s.id !== id);
-    savePortfolioData(data);
+    const data = await getPortfolioDataAsync();
+    if (data.skills) {
+      data.skills = data.skills.filter(s => s.id !== id);
+      await savePortfolioDataAsync(data);
+    }
     return NextResponse.json({ success: true, message: 'Skill deleted' });
-  } catch (err) {
-    return NextResponse.json({ success: false, message: 'Failed to delete skill' }, { status: 500 });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, message: err?.message || 'Failed to delete skill' }, { status: 500 });
   }
 }

@@ -1,9 +1,9 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'jyz3fn5r',
-  api_key: process.env.CLOUDINARY_API_KEY || '928292539864148',
-  api_secret: process.env.CLOUDINARY_API_SECRET || 'WKAgpmJgKZKRmstX8b7j3shxFTk',
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'bf8afjz2',
+  api_key: process.env.CLOUDINARY_API_KEY || '335517351621198',
+  api_secret: process.env.CLOUDINARY_API_SECRET || 'XkpX59qRJIFCM6bmuicsYa2Scvg',
   secure: true,
 });
 

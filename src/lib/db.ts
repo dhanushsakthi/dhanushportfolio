@@ -1,5 +1,7 @@
 import { PortfolioData, ContactMessage } from './types';
 import { INITIAL_DATA, hashPassword } from './initialData';
+import { db as firebaseDb } from './firebase';
+import { doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc } from 'firebase/firestore';
 
 export { INITIAL_DATA, hashPassword };
 
@@ -37,7 +39,11 @@ function getTmpMessagesFile(): string {
   return path ? path.join(getTmpDir(), 'messages.json') : '';
 }
 
-// Safe directory initialization that never throws
+// In-memory cache for fast reads
+let memoryCache: PortfolioData | null = null;
+let messagesCache: ContactMessage[] | null = null;
+
+// Safe filesystem initialization
 function ensureDataFile() {
   const fs = getFs();
   if (!fs) return;
@@ -48,32 +54,58 @@ function ensureDataFile() {
 
   try {
     if (!fs.existsSync(dataDir)) {
-      try {
-        fs.mkdirSync(dataDir, { recursive: true });
-      } catch {
-        // Ignored on serverless read-only FS
-      }
+      try { fs.mkdirSync(dataDir, { recursive: true }); } catch {}
     }
     if (!fs.existsSync(dataFile)) {
-      try {
-        fs.writeFileSync(dataFile, JSON.stringify(INITIAL_DATA, null, 2), 'utf-8');
-      } catch {
-        // Ignored on serverless read-only FS
-      }
+      try { fs.writeFileSync(dataFile, JSON.stringify(INITIAL_DATA, null, 2), 'utf-8'); } catch {}
     }
     if (!fs.existsSync(messagesFile)) {
-      try {
-        fs.writeFileSync(messagesFile, JSON.stringify([], null, 2), 'utf-8');
-      } catch {
-        // Ignored on serverless read-only FS
-      }
+      try { fs.writeFileSync(messagesFile, JSON.stringify([], null, 2), 'utf-8'); } catch {}
     }
   } catch (err) {
     console.warn('Filesystem init warning:', err);
   }
 }
 
+// Async getter: Tries Firestore first, falls back to local JSON file/INITIAL_DATA
+export async function getPortfolioDataAsync(): Promise<PortfolioData> {
+  try {
+    if (firebaseDb) {
+      const docRef = doc(firebaseDb, 'portfolio', 'main');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const firestoreData = docSnap.data() as PortfolioData;
+        const merged = {
+          ...INITIAL_DATA,
+          ...firestoreData,
+          profile: { ...INITIAL_DATA.profile, ...(firestoreData.profile || {}) },
+          siteSettings: { ...INITIAL_DATA.siteSettings, ...(firestoreData.siteSettings || {}) },
+          skills: firestoreData.skills?.length ? firestoreData.skills : INITIAL_DATA.skills,
+          projects: firestoreData.projects?.length ? firestoreData.projects : INITIAL_DATA.projects,
+          awards: firestoreData.awards?.length ? firestoreData.awards : (INITIAL_DATA.awards || []),
+          certifications: firestoreData.certifications?.length ? firestoreData.certifications : INITIAL_DATA.certifications,
+          experience: firestoreData.experience?.length ? firestoreData.experience : INITIAL_DATA.experience,
+        };
+        memoryCache = merged;
+        return merged;
+      } else {
+        // First time initialization: seed Firestore with INITIAL_DATA
+        await setDoc(docRef, INITIAL_DATA);
+        memoryCache = INITIAL_DATA;
+        return INITIAL_DATA;
+      }
+    }
+  } catch (err) {
+    console.warn('Firestore fetch failed, falling back to local storage:', err);
+  }
+
+  return getPortfolioData();
+}
+
+// Sync fallback getter
 export function getPortfolioData(): PortfolioData {
+  if (memoryCache) return memoryCache;
+
   ensureDataFile();
   const fs = getFs();
   if (!fs) return INITIAL_DATA;
@@ -81,43 +113,66 @@ export function getPortfolioData(): PortfolioData {
   const dataFile = getDataFile();
   const tmpDataFile = getTmpDataFile();
 
-  // 1. Try reading from process.cwd()/data/portfolio.json
   try {
     if (dataFile && fs.existsSync(dataFile)) {
       const raw = fs.readFileSync(dataFile, 'utf-8');
       const data = JSON.parse(raw);
-      return {
+      const merged = {
         ...INITIAL_DATA,
         ...data,
         profile: { ...INITIAL_DATA.profile, ...(data.profile || {}) },
         siteSettings: { ...INITIAL_DATA.siteSettings, ...(data.siteSettings || {}) }
       };
+      memoryCache = merged;
+      return merged;
     }
   } catch (err) {
-    console.warn('Could not read DATA_FILE, checking TMP fallback:', err);
+    console.warn('Error reading dataFile:', err);
   }
 
-  // 2. Try reading from /tmp/data/portfolio.json (for runtime serverless updates)
   try {
     if (tmpDataFile && fs.existsSync(tmpDataFile)) {
       const raw = fs.readFileSync(tmpDataFile, 'utf-8');
       const data = JSON.parse(raw);
-      return {
+      const merged = {
         ...INITIAL_DATA,
         ...data,
         profile: { ...INITIAL_DATA.profile, ...(data.profile || {}) },
         siteSettings: { ...INITIAL_DATA.siteSettings, ...(data.siteSettings || {}) }
       };
+      memoryCache = merged;
+      return merged;
     }
   } catch (err) {
-    console.warn('Could not read TMP_DATA_FILE:', err);
+    console.warn('Error reading tmpDataFile:', err);
   }
 
-  // 3. Fallback to built-in INITIAL_DATA (Guarantees Vercel & local server never crash)
+  memoryCache = INITIAL_DATA;
   return INITIAL_DATA;
 }
 
+// Async saver: Saves to Firestore & syncs to local filesystem / memory cache
+export async function savePortfolioDataAsync(data: PortfolioData): Promise<boolean> {
+  memoryCache = data;
+  let firestoreSuccess = false;
+
+  try {
+    if (firebaseDb) {
+      const docRef = doc(firebaseDb, 'portfolio', 'main');
+      await setDoc(docRef, data, { merge: true });
+      firestoreSuccess = true;
+    }
+  } catch (err) {
+    console.error('Firestore save failed:', err);
+  }
+
+  const localSuccess = savePortfolioData(data);
+  return firestoreSuccess || localSuccess;
+}
+
+// Sync local saver
 export function savePortfolioData(data: PortfolioData): boolean {
+  memoryCache = data;
   ensureDataFile();
   const fs = getFs();
   if (!fs) return false;
@@ -126,17 +181,15 @@ export function savePortfolioData(data: PortfolioData): boolean {
   const tmpDir = getTmpDir();
   const tmpDataFile = getTmpDataFile();
 
-  // Try standard path first
   try {
     if (dataFile) {
       fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), 'utf-8');
       return true;
     }
   } catch (err) {
-    console.warn('Standard save failed (likely read-only serverless environment), trying /tmp fallback:', err);
+    console.warn('Standard save failed, trying /tmp:', err);
   }
 
-  // Fallback to /tmp on serverless (Vercel)
   try {
     if (tmpDir && !fs.existsSync(tmpDir)) {
       fs.mkdirSync(tmpDir, { recursive: true });
@@ -146,12 +199,14 @@ export function savePortfolioData(data: PortfolioData): boolean {
       return true;
     }
   } catch (err) {
-    console.error('Save failed on /tmp fallback:', err);
+    console.error('Failed to save to /tmp:', err);
   }
   return false;
 }
 
 export function getContactMessages(): ContactMessage[] {
+  if (messagesCache) return messagesCache;
+
   ensureDataFile();
   const fs = getFs();
   if (!fs) return [];
@@ -162,16 +217,18 @@ export function getContactMessages(): ContactMessage[] {
   try {
     if (messagesFile && fs.existsSync(messagesFile)) {
       const raw = fs.readFileSync(messagesFile, 'utf-8');
-      return JSON.parse(raw);
+      messagesCache = JSON.parse(raw);
+      return messagesCache || [];
     }
   } catch (err) {
-    console.warn('Error reading MESSAGES_FILE, checking TMP:', err);
+    console.warn('Error reading MESSAGES_FILE:', err);
   }
 
   try {
     if (tmpMessagesFile && fs.existsSync(tmpMessagesFile)) {
       const raw = fs.readFileSync(tmpMessagesFile, 'utf-8');
-      return JSON.parse(raw);
+      messagesCache = JSON.parse(raw);
+      return messagesCache || [];
     }
   } catch (err) {
     console.warn('Error reading TMP_MESSAGES_FILE:', err);
@@ -190,6 +247,7 @@ export function saveContactMessage(message: Omit<ContactMessage, 'id' | 'created
     isRead: false
   };
   messages.unshift(newMessage);
+  messagesCache = messages;
 
   const fs = getFs();
   if (fs) {
@@ -220,6 +278,7 @@ export function markMessageRead(id: string): boolean {
   const target = messages.find(m => m.id === id);
   if (target) {
     target.isRead = true;
+    messagesCache = messages;
     const fs = getFs();
     if (fs) {
       const messagesFile = getMessagesFile();
