@@ -16,7 +16,7 @@ export const INITIAL_DATA: PortfolioData = {
     shortIntro: 'Passionate Film Director & Assistant Director with experience directing independent short films and assisting on major production projects.',
     about: 'Visionary film director and assistant director driven by continuous visual innovation, cinematic atmosphere, and deep narrative tension. Specialized in screenwriting, storyboarding, directing actors, on-set production management, visual aesthetics, and post-production workflow integration. Experienced in delivering compelling narratives for independent short films, music videos, and commercial concepts.',
     directorStatement: 'Filmmaking to me is the delicate art of capturing truth through light, sound, and motion. Every frame should carry intention, and every character choice should resonate with human emotion.',
-    email: 'adhanush.sortfilm@gmail.com',
+    email: 'adhanush.shortfilm@gmail.com',
     phone: '+91 6379855062',
     location: 'Chennai / Nagapattinam, Tamil Nadu',
     linkedInUrl: 'https://www.linkedin.com/in/dhanushsakthivel',

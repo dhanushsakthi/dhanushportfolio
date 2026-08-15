@@ -19,10 +19,10 @@ export async function POST(req: Request) {
       const storedHash = data.siteSettings?.adminPasswordHash || defaultHash;
 
       const inputUserClean = (username || '').trim().toLowerCase();
-      const profileEmailClean = (data.profile?.email || 'adhanush.sortfilm@gmail.com').trim().toLowerCase();
+      const profileEmailClean = (data.profile?.email || 'adhanush.shortfilm@gmail.com').trim().toLowerCase();
 
       const isValidUser = inputUserClean === 'admin' ||
-                          inputUserClean === 'adhanush.sortfilm@gmail.com' ||
+                          inputUserClean === 'adhanush.shortfilm@gmail.com' ||
                           inputUserClean === profileEmailClean;
 
       const isValidPassword = inputHash === storedHash ||

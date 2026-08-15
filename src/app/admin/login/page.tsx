@@ -78,7 +78,7 @@ export default function AdminLogin() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-cyan-500 transition-colors"
-                placeholder="admin or adhanush.sortfilm@gmail.com"
+                placeholder="admin or adhanush.shortfilm@gmail.com"
               />
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function AdminLogin() {
 
         <div className="text-center pt-4 border-t border-slate-800/80">
           <p className="text-[11px] text-slate-500">
-            Admin login: <code className="text-cyan-400 font-mono">admin</code> or <code className="text-cyan-400 font-mono">adhanush.sortfilm@gmail.com</code> / Password: <code className="text-cyan-400 font-mono">dhanush123</code>
+            Admin login: <code className="text-cyan-400 font-mono">admin</code> or <code className="text-cyan-400 font-mono">adhanush.shortfilm@gmail.com</code> / Password: <code className="text-cyan-400 font-mono">dhanush123</code>
           </p>
         </div>
 
