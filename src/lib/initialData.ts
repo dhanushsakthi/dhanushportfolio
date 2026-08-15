@@ -21,8 +21,8 @@ export const INITIAL_DATA: PortfolioData = {
     location: 'Chennai / Nagapattinam, Tamil Nadu',
     linkedInUrl: 'https://www.linkedin.com/in/dhanushsakthivel',
     githubUrl: 'https://github.com/dhanushsakthi',
-    instagramUrl: 'https://instagram.com/dhanush_director',
-    youtubeUrl: 'https://youtube.com/@dhanushfilms',
+    instagramUrl: 'https://www.instagram.com/blacky_magic?igsh=bjB2c2x6ZmhjenJq',
+    youtubeUrl: 'https://www.youtube.com/@black__magic-f4c',
     portfolioUrl: 'https://kmdfoodproducts.com/about.php',
     photoUrl: 'https://res.cloudinary.com/bf8afjz2/image/upload/v1/portfolio/profile/director_profile.jpg',
     resumePdfUrl: '/uploads/dhanush_resume.pdf',
@@ -105,6 +105,35 @@ export const INITIAL_DATA: PortfolioData = {
     }
   ],
   projects: [
+    {
+      id: 'proj-feathers',
+      title: 'FEATHERS',
+      slug: 'feathers-short-film',
+      shortDescription: 'First short film project worked on as Assistant Director with the Black Magic team.',
+      detailedDescription: 'FEATHERS is an emotionally charged narrative short film where Dhanush S served as Assistant Director. Managed script continuity, shot breakdowns, call sheet logistics, and actor direction on set.',
+      logline: 'A poignant narrative short film exploring human resilience, subtle choices, and emotional bonds.',
+      role: 'Assistant Director',
+      projectType: 'Assistant Director Work',
+      year: '2025',
+      genre: 'Drama / Narrative',
+      duration: '15 mins',
+      director: 'Black Magic Team',
+      credits: 'Directed by Black Magic Team | Assistant Director: Dhanush S',
+      cast: 'Black Magic Ensemble',
+      crew: 'Assistant Director: Dhanush S | Produced by Black Magic',
+      imageUrl: 'https://img.youtube.com/vi/GE3Canx1azk/maxresdefault.jpg',
+      poster: 'https://img.youtube.com/vi/GE3Canx1azk/hqdefault.jpg',
+      coverImage: 'https://img.youtube.com/vi/GE3Canx1azk/maxresdefault.jpg',
+      videoSourceType: 'youtube',
+      youtubeUrl: 'https://youtu.be/GE3Canx1azk?si=O0_mcW6gAhiAEpOW',
+      youtubeVideoId: 'GE3Canx1azk',
+      screenshots: [
+        'https://img.youtube.com/vi/GE3Canx1azk/maxresdefault.jpg'
+      ],
+      isFeatured: true,
+      published: true,
+      order: 1
+    },
     {
       id: 'proj-1',
       title: 'LOCK-IN',
