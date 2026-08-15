@@ -127,7 +127,7 @@ export default function ProfileAdmin() {
   };
 
   if (loading || !profile) {
-    return <div className="py-20 text-center text-slate-400 text-xs animate-pulse">Loading Director Profile CMS...</div>;
+    return <div className="py-20 text-center text-slate-400 text-xs animate-pulse">Loading Profile CMS...</div>;
   }
 
   return (
@@ -138,10 +138,10 @@ export default function ProfileAdmin() {
         <div>
           <h1 className="text-2xl font-black text-white flex items-center gap-2">
             <User className="w-6 h-6 text-cyan-400" />
-            <span>Director Profile & Vision CMS</span>
+            <span>Developer Profile & Bio CMS</span>
           </h1>
           <p className="text-xs text-slate-400">
-            Manage Director Statement, Headshot, Biography, and Portfolio Contacts
+            Manage Professional Headline, Headshot, Biography, and Portfolio Contacts
           </p>
         </div>
 
@@ -173,13 +173,13 @@ export default function ProfileAdmin() {
         {/* Media & Headshot */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-6">
           <h2 className="text-xs font-black uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
-            Director Photo & Resume (Cloudinary Storage)
+            Developer Photo & Resume PDF
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <div className="space-y-3">
-              <label className="block text-xs font-semibold text-slate-300">Director Headshot Photo</label>
+              <label className="block text-xs font-semibold text-slate-300">Profile Photo</label>
               <div className="flex items-center gap-4">
                 <div className="relative w-20 h-24 rounded-xl overflow-hidden bg-slate-950 border border-slate-700">
                   {profile.photoUrl ? (
@@ -200,7 +200,7 @@ export default function ProfileAdmin() {
             </div>
 
             <div className="space-y-3">
-              <label className="block text-xs font-semibold text-slate-300">Director Portfolio PDF / Filmography Resume</label>
+              <label className="block text-xs font-semibold text-slate-300">Resume PDF Document</label>
               <div className="space-y-2">
                 {profile.resumePdfUrl && (
                   <a
@@ -227,15 +227,15 @@ export default function ProfileAdmin() {
           </div>
         </div>
 
-        {/* Director Bio & Statement */}
+        {/* Developer Bio & Headline */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
           <h2 className="text-xs font-black uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
-            Director Persona & Statement
+            Developer Persona & Summary
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Director Full Name</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">Full Name</label>
               <input
                 type="text"
                 value={profile.name || ''}
@@ -245,7 +245,7 @@ export default function ProfileAdmin() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Professional Title / Role</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">Professional Title / Headline</label>
               <input
                 type="text"
                 value={profile.headline || ''}

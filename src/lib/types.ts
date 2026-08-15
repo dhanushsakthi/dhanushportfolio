@@ -22,7 +22,7 @@ export interface Profile {
 export interface Skill {
   id: string;
   name: string;
-  category: 'Direction' | 'Screenwriting' | 'Storyboarding' | 'Cinematography' | 'Editing' | 'AI Filmmaking' | 'Visual Storytelling' | 'Film Analysis' | 'Programming' | 'Web Development' | 'Database' | 'AI / Data' | 'Tools & Platforms' | string;
+  category: 'Programming' | 'Web Development' | 'Database' | 'AI / Data' | 'Tools & Platforms' | string;
   iconName?: string;
   level?: string;
   description?: string;
@@ -38,15 +38,15 @@ export interface Experience {
   startDate: string;
   endDate: string;
   isCurrent: boolean;
-  type: 'Assistant Director' | 'Film Director' | 'Writer' | 'Full-time' | 'Freelance' | 'Internship' | string;
+  type: 'Full-time' | 'Freelance' | 'Internship' | 'Contract' | string;
   highlights: string[];
   technologies?: string[];
   order?: number;
   published?: boolean;
 }
 
-export type ProjectRole = 'Director' | 'Assistant Director' | 'Writer' | 'Screenwriter' | 'Editor' | 'Cinematographer' | 'Other' | string;
-export type ProjectType = 'Short Film' | 'Feature Film' | 'Assistant Director Work' | 'Directed Film' | 'Music Video' | 'Advertisement' | 'Experimental Film' | 'Other' | string;
+export type ProjectRole = 'Full-Stack Developer' | 'Frontend Developer' | 'Lead Developer' | 'Machine Learning Intern' | 'Web Developer' | 'Other' | string;
+export type ProjectType = 'E-Commerce' | 'CMS' | 'AI / ML' | 'Client Work' | 'Web Application' | 'Other' | string;
 export type VideoSourceType = 'youtube' | 'cloudinary' | 'none';
 
 export interface Project {

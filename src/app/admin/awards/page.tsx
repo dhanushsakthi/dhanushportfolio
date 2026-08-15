@@ -258,13 +258,13 @@ export default function AdminAwards() {
                   required
                   value={form.awardName || ''}
                   onChange={e => setForm({ ...form, awardName: e.target.value })}
-                  placeholder="e.g. Best Short Film Director"
+                  placeholder="e.g. Technical Excellence Award / Hackathon Winner"
                   className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-amber-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">Organization / Film Festival *</label>
+                <label className="block text-slate-400 font-semibold mb-1">Organization / Event Sponsor *</label>
                 <input
                   type="text"
                   required

@@ -12,11 +12,10 @@ export default function AdminSidebar() {
 
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Profile & Director Bio', href: '/admin/profile', icon: User },
-    { name: 'Filmography & Projects', href: '/admin/projects', icon: Film },
+    { name: 'Profile & Bio', href: '/admin/profile', icon: User },
+    { name: 'Projects & Solutions', href: '/admin/projects', icon: Code },
     { name: 'Media Library', href: '/admin/media', icon: ImageIcon },
-    { name: 'Awards & Honors', href: '/admin/awards', icon: Trophy },
-    { name: 'Skills & Tech Stack', href: '/admin/skills', icon: Code },
+    { name: 'Skills & Tech Stack', href: '/admin/skills', icon: Sparkles },
     { name: 'Certifications', href: '/admin/certifications', icon: Award },
     { name: 'Experience & Timeline', href: '/admin/experience', icon: Briefcase },
     { name: 'Messages & Inquiries', href: '/admin/messages', icon: Mail }
@@ -41,7 +40,7 @@ export default function AdminSidebar() {
               CMS
             </div>
             <div>
-              <div className="text-xs font-black uppercase tracking-wider text-white">Director Portal</div>
+              <div className="text-xs font-black uppercase tracking-wider text-white">Admin CMS Portal</div>
               <div className="text-[10px] text-cyan-400 font-semibold tracking-wide">Dhanush Portfolio</div>
             </div>
           </div>
@@ -94,7 +93,7 @@ export default function AdminSidebar() {
           <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center font-bold text-slate-950 text-[10px]">
             CMS
           </div>
-          <span className="text-xs font-bold text-white">Director Admin</span>
+          <span className="text-xs font-bold text-white">Admin Portal</span>
         </div>
 
         <button

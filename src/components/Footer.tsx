@@ -25,7 +25,7 @@ export default function Footer({ profile }: FooterProps) {
               {profile.name || 'DHANUSH S'}
             </span>
             <span className="text-xs text-cyan-400 font-bold">
-              {profile.headline || 'Film Director & Assistant Director'}
+              {profile.headline || 'Full-Stack Web Developer & AI Specialist'}
             </span>
           </div>
 
@@ -94,7 +94,7 @@ export default function Footer({ profile }: FooterProps) {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
-          <p>Filmmaker CMS Powered by Firebase & Cloudinary</p>
+          <p>Professional IT Portfolio & Admin CMS</p>
         </div>
       </div>
     </footer>

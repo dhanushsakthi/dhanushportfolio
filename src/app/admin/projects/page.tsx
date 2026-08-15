@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Film, Plus, Edit2, Trash2, Video, Image as ImageIcon, Eye, EyeOff, Sparkles, AlertTriangle, CheckCircle2, Upload, X, ArrowUp, ArrowDown } from 'lucide-react';
+import { Code, Film, Plus, Edit2, Trash2, Video, Image as ImageIcon, Eye, EyeOff, Sparkles, AlertTriangle, CheckCircle2, Upload, X, ArrowUp, ArrowDown } from 'lucide-react';
 import { YouTubeIcon } from '@/components/BrandIcons';
 import { Project, ProjectRole, ProjectType, VideoSourceType } from '@/lib/types';
 import VideoPlayer from '@/components/VideoPlayer';
@@ -218,9 +218,10 @@ export default function AdminProjects() {
   };
 
   const filteredProjects = projects.filter(p => {
-    if (filterCategory === 'DIRECTED') return p.projectType === 'Directed Film' || p.role === 'Director';
-    if (filterCategory === 'AD_WORK') return p.projectType === 'Assistant Director Work' || p.role === 'Assistant Director';
-    if (filterCategory === 'SHORT_FILMS') return p.projectType === 'Short Film';
+    if (filterCategory === 'E-Commerce') return p.category === 'E-Commerce' || p.projectType === 'E-Commerce';
+    if (filterCategory === 'CMS') return p.category === 'CMS' || p.projectType === 'CMS';
+    if (filterCategory === 'AI_ML') return p.category === 'AI / ML' || p.projectType === 'AI / ML';
+    if (filterCategory === 'Client Work') return p.category === 'Client Work' || p.projectType === 'Client Work';
     return true;
   });
 
@@ -231,11 +232,11 @@ export default function AdminProjects() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/60 border border-slate-800/80 p-6 rounded-3xl backdrop-blur-xl">
         <div>
           <div className="flex items-center gap-2">
-            <Film className="w-5 h-5 text-cyan-400" />
-            <h1 className="text-xl font-black text-white uppercase tracking-wider">Filmography CMS</h1>
+            <Code className="w-5 h-5 text-cyan-400" />
+            <h1 className="text-xl font-black text-white uppercase tracking-wider">Projects CMS</h1>
           </div>
           <p className="text-xs text-slate-400 mt-1">
-            Manage Directed Films, Assistant Director Projects, Short Films, Videos & Stills
+            Manage E-Commerce Platforms, Custom CMS Apps, AI/ML Models, and Client Solutions
           </p>
         </div>
 
@@ -244,7 +245,7 @@ export default function AdminProjects() {
           className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/20 transition-all self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
-          <span>Add New Film / Project</span>
+          <span>Add New Project</span>
         </button>
       </div>
 
@@ -252,9 +253,10 @@ export default function AdminProjects() {
       <div className="flex items-center gap-2 overflow-x-auto pb-2">
         {[
           { id: 'ALL', label: 'All Projects' },
-          { id: 'DIRECTED', label: 'Directed By Dhanush' },
-          { id: 'AD_WORK', label: 'Assistant Director Work' },
-          { id: 'SHORT_FILMS', label: 'Short Films' }
+          { id: 'E-Commerce', label: 'E-Commerce' },
+          { id: 'CMS', label: 'CMS Platforms' },
+          { id: 'AI_ML', label: 'AI / ML Models' },
+          { id: 'Client Work', label: 'Client Works' }
         ].map(tab => (
           <button
             key={tab.id}
@@ -267,9 +269,10 @@ export default function AdminProjects() {
           >
             {tab.label} ({
               tab.id === 'ALL' ? projects.length :
-              tab.id === 'DIRECTED' ? projects.filter(p => p.projectType === 'Directed Film' || p.role === 'Director').length :
-              tab.id === 'AD_WORK' ? projects.filter(p => p.projectType === 'Assistant Director Work' || p.role === 'Assistant Director').length :
-              projects.filter(p => p.projectType === 'Short Film').length
+              tab.id === 'E-Commerce' ? projects.filter(p => p.category === 'E-Commerce' || p.projectType === 'E-Commerce').length :
+              tab.id === 'CMS' ? projects.filter(p => p.category === 'CMS' || p.projectType === 'CMS').length :
+              tab.id === 'AI_ML' ? projects.filter(p => p.category === 'AI / ML' || p.projectType === 'AI / ML').length :
+              projects.filter(p => p.category === 'Client Work' || p.projectType === 'Client Work').length
             })
           </button>
         ))}
@@ -277,12 +280,12 @@ export default function AdminProjects() {
 
       {/* Projects List */}
       {loading ? (
-        <div className="py-20 text-center text-slate-400 text-xs animate-pulse">Loading filmography...</div>
+        <div className="py-20 text-center text-slate-400 text-xs animate-pulse">Loading projects...</div>
       ) : filteredProjects.length === 0 ? (
         <div className="py-16 text-center bg-slate-900/40 border border-slate-800/80 rounded-3xl p-8 space-y-3">
-          <Film className="w-12 h-12 text-slate-600 mx-auto" />
-          <h3 className="text-sm font-bold text-slate-300">No films found in this category</h3>
-          <p className="text-xs text-slate-500">Click "Add New Film" to add a new project to your CMS.</p>
+          <Code className="w-12 h-12 text-slate-600 mx-auto" />
+          <h3 className="text-sm font-bold text-slate-300">No projects found in this category</h3>
+          <p className="text-xs text-slate-500">Click "Add New Project" to add a new project to your CMS.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

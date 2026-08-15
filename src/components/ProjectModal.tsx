@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { X, ExternalLink, Tag, Layers, User, Briefcase, Film, Clapperboard, Video } from 'lucide-react';
+import { X, ExternalLink, Tag, Layers, User, Briefcase, Globe, Code, Image as ImageIcon } from 'lucide-react';
 import { Project } from '@/lib/types';
 import VideoPlayer from './VideoPlayer';
 
@@ -24,7 +24,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-800 bg-slate-950/50 sticky top-0 z-20">
           <div className="flex items-center gap-3">
             <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
-              {project.projectType || project.category || 'Film'}
+              {project.category || project.projectType || 'Software Project'}
             </span>
             <h2 className="text-xl font-extrabold text-white tracking-tight">{project.title}</h2>
           </div>
@@ -39,7 +39,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         {/* Modal Content Scrollable Area */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 text-xs sm:text-sm">
           
-          {/* Cinematic Video Player or Banner */}
+          {/* Banner / Video Player */}
           {hasVideo ? (
             <VideoPlayer
               videoSourceType={project.videoSourceType || (project.youtubeUrl ? 'youtube' : 'cloudinary')}
@@ -52,73 +52,89 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           ) : (
             <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden border border-slate-800 bg-slate-950">
               <img
-                src={project.poster || project.imageUrl || 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80'}
+                src={project.imageUrl || project.poster || '/certificates/FULL-STACK (LINKED-IN).jpg'}
                 alt={project.title}
                 className="w-full h-full object-cover"
               />
             </div>
           )}
 
-          {/* Logline Banner */}
-          {project.logline && (
-            <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 italic font-semibold text-center">
-              "{project.logline}"
-            </div>
-          )}
-
-          {/* Production Meta Info */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80">
+          {/* Project Meta Info */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80">
             <div>
-              <div className="text-[11px] text-slate-400 font-semibold">My Role</div>
+              <div className="text-[11px] text-slate-400 font-semibold">Development Role</div>
               <div className="text-xs font-black text-amber-300 mt-0.5">{project.role}</div>
             </div>
 
             <div>
-              <div className="text-[11px] text-slate-400 font-semibold">Director</div>
-              <div className="text-xs font-bold text-slate-200 mt-0.5">{project.director || 'Dhanush S'}</div>
+              <div className="text-[11px] text-slate-400 font-semibold">Client / Project Context</div>
+              <div className="text-xs font-bold text-slate-200 mt-0.5">{project.clientContext || 'Client Solution'}</div>
             </div>
 
             <div>
-              <div className="text-[11px] text-slate-400 font-semibold">Year & Genre</div>
-              <div className="text-xs font-bold text-slate-200 mt-0.5">{project.year || '2026'} • {project.genre || 'Film'}</div>
-            </div>
-
-            <div>
-              <div className="text-[11px] text-slate-400 font-semibold">Duration</div>
-              <div className="text-xs font-bold text-cyan-400 mt-0.5">{project.duration || 'N/A'}</div>
+              <div className="text-[11px] text-slate-400 font-semibold">Project Category</div>
+              <div className="text-xs font-bold text-cyan-400 mt-0.5">{project.category || project.projectType}</div>
             </div>
           </div>
+
+          {/* Live Action Buttons */}
+          {project.liveDemoUrl && (
+            <div className="flex items-center gap-3">
+              <a
+                href={project.liveDemoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white shadow-lg shadow-emerald-500/20 transition-all"
+              >
+                <Globe className="w-4 h-4" />
+                <span>Visit Live Application</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          )}
 
           {/* Overview */}
           <div className="space-y-2">
             <h3 className="text-base font-black text-white flex items-center gap-2">
               <Layers className="w-4 h-4 text-cyan-400" />
-              <span>Film Overview & Story Synopsis</span>
+              <span>Project Overview & System Architecture</span>
             </h3>
             <p className="text-slate-300 leading-relaxed whitespace-pre-line">
               {project.detailedDescription || project.shortDescription}
             </p>
           </div>
 
-          {/* Credits */}
-          {project.credits && (
-            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Cast & Crew Credits</div>
-              <p className="text-xs text-slate-300 font-mono leading-relaxed">{project.credits}</p>
+          {/* Tech Stack */}
+          {project.technologies && project.technologies.length > 0 && (
+            <div className="space-y-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                <Code className="w-4 h-4 text-cyan-400" />
+                <span>Technologies & Frameworks Used</span>
+              </h3>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {project.technologies.map((tech, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 rounded-xl bg-slate-950 border border-slate-800 text-xs font-semibold text-cyan-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 
-          {/* Production Gallery Stills */}
+          {/* Project Screenshots */}
           {project.screenshots && project.screenshots.length > 0 && (
             <div className="space-y-3 pt-2">
               <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                <Film className="w-4 h-4 text-cyan-400" />
-                <span>Production Gallery & Behind the Scenes</span>
+                <ImageIcon className="w-4 h-4 text-cyan-400" />
+                <span>Project Screenshots & Screenshots Gallery</span>
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {project.screenshots.map((url, idx) => (
                   <div key={idx} className="relative aspect-video rounded-xl overflow-hidden border border-slate-800 bg-slate-950 group">
-                    <img src={url} alt={`Gallery Still ${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={url} alt={`Screenshot ${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                 ))}
               </div>

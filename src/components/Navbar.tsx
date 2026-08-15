@@ -37,9 +37,10 @@ export default function Navbar({ profile, onOpenResume }: NavbarProps) {
 
   const navLinks = [
     { name: 'Skills', href: '#skills', icon: Code },
+    { name: 'Projects', href: '#projects', icon: Sparkles },
     { name: 'Experience', href: '#experience', icon: Briefcase },
-    { name: 'AI Music Creation', href: '#projects', icon: Sparkles },
     { name: 'About', href: '#about', icon: User },
+    { name: 'Certifications', href: '#certifications', icon: Award },
     { name: 'Education', href: '#education', icon: GraduationCap },
     { name: 'Contact', href: '#contact', icon: Mail },
   ];
@@ -66,7 +67,7 @@ export default function Navbar({ profile, onOpenResume }: NavbarProps) {
             </span>
             <span className="text-[10px] sm:text-xs text-cyan-400 font-medium tracking-wider uppercase flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Film Director & AD
+              {profile.currentRole || 'Full-Stack & AI Developer'}
             </span>
           </div>
         </Link>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Code, Terminal, Database, Bot, Wrench, Layers, Film, Clapperboard, Video, Eye, Sparkles } from 'lucide-react';
+import { Code, Terminal, Database, Bot, Wrench, Cpu, Layout, Layers } from 'lucide-react';
 import { Skill } from '@/lib/types';
 
 interface SkillsProps {
@@ -26,16 +26,11 @@ export default function Skills({ skills }: SkillsProps) {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'Direction': return Clapperboard;
-      case 'Screenwriting': return Film;
-      case 'Storyboarding': return Layers;
-      case 'Cinematography': return Video;
-      case 'Editing': return Sparkles;
-      case 'AI Filmmaking': return Bot;
-      case 'Visual Storytelling': return Eye;
       case 'Programming': return Terminal;
       case 'Web Development': return Code;
       case 'Database': return Database;
+      case 'AI / Data': return Cpu;
+      case 'Tools & Platforms': return Wrench;
       default: return Layers;
     }
   };
@@ -47,14 +42,14 @@ export default function Skills({ skills }: SkillsProps) {
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-black uppercase tracking-wider mb-3">
-            <Clapperboard className="w-3.5 h-3.5" />
-            <span>Directorial & Technical Craft</span>
+            <Code className="w-3.5 h-3.5" />
+            <span>Technical Capabilities</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Filmmaking Skills & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-indigo-400">Technical Expertise</span>
+            Programming & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-indigo-400">Technical Skillset</span>
           </h2>
           <p className="mt-3 text-slate-400 max-w-xl text-sm sm:text-base">
-            Capabilities across film direction, screenwriting, cinematography, color grading, and digital media production.
+            Proficiencies across Java, Python, SQL, React/Next.js, Machine Learning, CMS Development, and Cloud Tools.
           </p>
         </div>
 
