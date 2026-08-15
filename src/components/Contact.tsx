@@ -45,11 +45,11 @@ export default function Contact({ profile }: ContactProps) {
   };
 
   return (
-    <section id="contact" className="py-24 bg-slate-950 relative overflow-hidden border-t border-slate-900">
+    <section id="contact" className="py-16 sm:py-24 bg-slate-950 relative overflow-hidden border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Mail className="w-3.5 h-3.5" />
             <span>Get In Touch</span>
@@ -57,7 +57,7 @@ export default function Contact({ profile }: ContactProps) {
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Let&apos;s Connect & <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-400">Build Together</span>
           </h2>
-          <p className="mt-4 text-slate-400 max-w-xl text-base">
+          <p className="mt-3 text-slate-400 max-w-xl text-sm sm:text-base">
             Open for software development roles, full-stack client projects, CMS solutions, and technical collaborations.
           </p>
         </div>
@@ -70,14 +70,14 @@ export default function Contact({ profile }: ContactProps) {
             {/* Email Card */}
             <a
               href={`mailto:${profile.email}`}
-              className="bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl p-6 flex items-center gap-4 hover:border-emerald-500/40 hover:bg-slate-900 transition-all duration-300 group shadow-lg"
+              className="bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-6 flex items-center gap-4 hover:border-emerald-500/40 hover:bg-slate-900 transition-all duration-300 group shadow-lg min-w-0"
             >
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                <Mail className="w-6 h-6" />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform shrink-0">
+                <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Email Direct</div>
-                <div className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+              <div className="min-w-0 flex-1">
+                <div className="text-[11px] sm:text-xs text-slate-400 font-medium uppercase tracking-wider">Email Direct</div>
+                <div className="text-sm sm:text-base font-bold text-white group-hover:text-emerald-300 transition-colors truncate">
                   {profile.email}
                 </div>
               </div>
@@ -86,41 +86,41 @@ export default function Contact({ profile }: ContactProps) {
             {/* Phone Card */}
             <a
               href={`tel:${profile.phone}`}
-              className="bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl p-6 flex items-center gap-4 hover:border-cyan-500/40 hover:bg-slate-900 transition-all duration-300 group shadow-lg"
+              className="bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-6 flex items-center gap-4 hover:border-cyan-500/40 hover:bg-slate-900 transition-all duration-300 group shadow-lg min-w-0"
             >
-              <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
-                <Phone className="w-6 h-6" />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform shrink-0">
+                <Phone className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Phone / Call</div>
-                <div className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
+              <div className="min-w-0 flex-1">
+                <div className="text-[11px] sm:text-xs text-slate-400 font-medium uppercase tracking-wider">Phone / Call</div>
+                <div className="text-sm sm:text-base font-bold text-white group-hover:text-cyan-300 transition-colors truncate">
                   {profile.phone}
                 </div>
               </div>
             </a>
 
             {/* Location Card */}
-            <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl p-6 flex items-center gap-4 shadow-lg">
-              <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
-                <MapPin className="w-6 h-6" />
+            <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl p-5 sm:p-6 flex items-center gap-4 shadow-lg min-w-0">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 shrink-0">
+                <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Location</div>
-                <div className="text-base font-bold text-white">
+              <div className="min-w-0 flex-1">
+                <div className="text-[11px] sm:text-xs text-slate-400 font-medium uppercase tracking-wider">Location</div>
+                <div className="text-sm sm:text-base font-bold text-white truncate">
                   {profile.location}
                 </div>
               </div>
             </div>
 
             {/* Professional Social Buttons */}
-            <div className="pt-4 grid grid-cols-2 gap-3">
+            <div className="pt-2 grid grid-cols-2 gap-3">
               <a
                 href={profile.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-sm font-semibold text-slate-200 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
+                className="flex items-center justify-center gap-2 p-3 sm:p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs sm:text-sm font-semibold text-slate-200 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
               >
-                <LinkedInIcon className="w-4 h-4 text-cyan-400" />
+                <LinkedInIcon className="w-4 h-4 text-cyan-400 shrink-0" />
                 <span>LinkedIn</span>
               </a>
 
@@ -128,9 +128,9 @@ export default function Contact({ profile }: ContactProps) {
                 href={profile.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-sm font-semibold text-slate-200 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
+                className="flex items-center justify-center gap-2 p-3 sm:p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs sm:text-sm font-semibold text-slate-200 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
               >
-                <GitHubIcon className="w-4 h-4 text-slate-200" />
+                <GitHubIcon className="w-4 h-4 text-slate-200 shrink-0" />
                 <span>GitHub</span>
               </a>
             </div>
@@ -138,15 +138,15 @@ export default function Contact({ profile }: ContactProps) {
           </div>
 
           {/* Interactive Contact Form */}
-          <div className="lg:col-span-7 bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
-            <h3 className="text-xl font-bold text-white mb-2">Send a Message</h3>
+          <div className="lg:col-span-7 bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-xl">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-1.5">Send a Message</h3>
             <p className="text-xs sm:text-sm text-slate-400 mb-6">
               Fill out the form below to reach Dhanush directly.
             </p>
 
             {status && (
               <div
-                className={`p-4 rounded-xl mb-6 text-sm flex items-center gap-3 ${
+                className={`p-3.5 sm:p-4 rounded-xl mb-6 text-xs sm:text-sm flex items-center gap-3 ${
                   status.type === 'success'
                     ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300'
                     : 'bg-red-500/10 border border-red-500/30 text-red-300'
@@ -173,7 +173,7 @@ export default function Contact({ profile }: ContactProps) {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Alex Rivera"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-sm transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-base sm:text-sm transition-colors"
                   />
                 </div>
 
@@ -187,7 +187,7 @@ export default function Contact({ profile }: ContactProps) {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="e.g. alex@company.com"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-sm transition-colors"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-base sm:text-sm transition-colors"
                   />
                 </div>
               </div>
@@ -201,7 +201,7 @@ export default function Contact({ profile }: ContactProps) {
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   placeholder="e.g. Full-Stack Web Development Inquiry"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-sm transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-base sm:text-sm transition-colors"
                 />
               </div>
 
@@ -215,14 +215,14 @@ export default function Contact({ profile }: ContactProps) {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Share details about your project, role, or collaboration..."
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-sm transition-colors resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 text-base sm:text-sm transition-colors resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/20 disabled:opacity-50 transition-all"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/20 disabled:opacity-50 transition-all active:scale-[0.98]"
               >
                 {loading ? (
                   <span>Sending Message...</span>

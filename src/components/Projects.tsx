@@ -22,11 +22,11 @@ export default function Projects({ projects }: ProjectsProps) {
     : projects.filter(p => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-24 bg-slate-950 relative overflow-hidden border-t border-slate-900">
+    <section id="projects" className="py-16 sm:py-24 bg-slate-950 relative overflow-hidden border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-12">
+        <div className="flex flex-col items-center text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Featured Portfolio</span>
@@ -34,18 +34,18 @@ export default function Projects({ projects }: ProjectsProps) {
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Real-World <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">Client & Software Projects</span>
           </h2>
-          <p className="mt-4 text-slate-400 max-w-xl text-base">
+          <p className="mt-3 text-slate-400 max-w-xl text-sm sm:text-base">
             Explore live production web solutions, CMS gifting platforms, and machine learning systems built for real businesses.
           </p>
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center items-center gap-2 mb-12">
+        <div className="flex items-center gap-2 mb-8 sm:mb-12 overflow-x-auto pb-3 sm:pb-0 sm:flex-wrap sm:justify-center no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold shrink-0 transition-all duration-200 ${
                 activeCategory === cat
                   ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/20'
                   : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
@@ -57,7 +57,7 @@ export default function Projects({ projects }: ProjectsProps) {
         </div>
 
         {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
@@ -65,18 +65,19 @@ export default function Projects({ projects }: ProjectsProps) {
             >
               
               {/* Project Image Banner */}
-              <div className="relative w-full h-52 bg-slate-950 overflow-hidden cursor-pointer" onClick={() => setSelectedProject(project)}>
+              <div className="relative w-full h-48 sm:h-52 bg-slate-950 overflow-hidden cursor-pointer" onClick={() => setSelectedProject(project)}>
                 <Image
                   src={project.imageUrl || '/certificates/FULL-STACK (LINKED-IN).jpg'}
                   alt={project.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
 
                 {/* Badges */}
-                <div className="absolute top-3 left-3 flex gap-2">
-                  <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-950/90 backdrop-blur-md border border-cyan-500/30 text-cyan-400">
+                <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-bold bg-slate-950/90 backdrop-blur-md border border-cyan-500/30 text-cyan-400">
                     {project.category}
                   </span>
                   {project.isFeatured && (
@@ -95,11 +96,11 @@ export default function Projects({ projects }: ProjectsProps) {
               </div>
 
               {/* Project Body */}
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <h3
                     onClick={() => setSelectedProject(project)}
-                    className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors cursor-pointer flex items-center justify-between"
+                    className="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-300 transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>{project.title}</span>
                   </h3>
@@ -109,11 +110,11 @@ export default function Projects({ projects }: ProjectsProps) {
                 </div>
 
                 {/* Tech Pills */}
-                <div className="flex flex-wrap gap-1.5 pt-2">
+                <div className="flex flex-wrap gap-1.5 pt-1">
                   {project.technologies.slice(0, 4).map((tech, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-0.5 rounded-md bg-slate-800/90 border border-slate-700/60 text-[11px] text-slate-300"
+                      className="px-2 py-0.5 rounded-md bg-slate-800/90 border border-slate-700/60 text-[10px] sm:text-[11px] text-slate-300"
                     >
                       {tech}
                     </span>
@@ -126,17 +127,17 @@ export default function Projects({ projects }: ProjectsProps) {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
+                <div className="pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {project.liveDemoUrl && (
                       <a
                         href={project.liveDemoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all"
+                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-all"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
-                        <span>LIVE DEMO</span>
+                        <span>DEMO</span>
                       </a>
                     )}
 
@@ -145,19 +146,19 @@ export default function Projects({ projects }: ProjectsProps) {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition-all"
+                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition-all"
                       >
                         <GitHubIcon className="w-3.5 h-3.5" />
-                        <span>GitHub</span>
+                        <span>Code</span>
                       </a>
                     )}
                   </div>
 
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="text-xs text-slate-400 hover:text-cyan-300 font-medium transition-colors"
+                    className="text-xs text-slate-400 hover:text-cyan-300 font-medium transition-colors shrink-0"
                   >
-                    View Details →
+                    Details →
                   </button>
                 </div>
 
