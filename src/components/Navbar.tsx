@@ -66,7 +66,7 @@ export default function Navbar({ profile, onOpenResume }: NavbarProps) {
             </span>
             <span className="text-[10px] sm:text-xs text-cyan-400 font-medium tracking-wider uppercase flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              AI & Web Developer
+              Film Director & AD
             </span>
           </div>
         </Link>
