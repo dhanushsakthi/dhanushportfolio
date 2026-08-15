@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Film, Trophy, Code, Briefcase, Mail, User, FileText, ExternalLink, PlusCircle, Image as ImageIcon, Clapperboard, Video, CheckCircle2 } from 'lucide-react';
+import { Code, Trophy, Briefcase, Mail, User, FileText, ExternalLink, PlusCircle, Image as ImageIcon, Cpu, Globe, CheckCircle2 } from 'lucide-react';
 import { PortfolioData, ContactMessage } from '@/lib/types';
 
 export default function AdminDashboard() {
@@ -29,17 +29,17 @@ export default function AdminDashboard() {
   if (loading || !data) {
     return (
       <div className="py-24 text-center text-slate-400 text-xs animate-pulse flex flex-col items-center justify-center gap-3">
-        <Film className="w-8 h-8 text-cyan-400 animate-spin" />
-        <span>Loading Director CMS Overview...</span>
+        <Code className="w-8 h-8 text-cyan-400 animate-spin" />
+        <span>Loading Developer CMS Overview...</span>
       </div>
     );
   }
 
   const projects = data.projects || [];
-  const directedFilms = projects.filter(p => p.projectType === 'Directed Film' || p.role === 'Director');
-  const adWorks = projects.filter(p => p.projectType === 'Assistant Director Work' || p.role === 'Assistant Director');
-  const shortFilms = projects.filter(p => p.projectType === 'Short Film');
-  const awards = data.awards || [];
+  const webProjects = projects.filter(p => p.category === 'E-Commerce' || p.category === 'CMS' || p.projectType === 'E-Commerce' || p.projectType === 'CMS');
+  const aiProjects = projects.filter(p => p.category === 'AI / ML' || p.projectType === 'AI / ML');
+  const clientProjects = projects.filter(p => p.category === 'Client Work' || p.projectType === 'Client Work');
+  const certifications = data.certifications || [];
   const skills = data.skills || [];
   const unreadCount = messages.filter(m => !m.isRead).length;
 
@@ -51,14 +51,14 @@ export default function AdminDashboard() {
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-              Executive Director Studio
+              Developer CMS Admin
             </span>
           </div>
           <h1 className="text-2xl font-black text-white mt-2">
             Welcome, <span className="text-cyan-400">{data.profile.name}</span>
           </h1>
           <p className="text-xs text-slate-400 mt-1">
-            Dynamic Filmmaker CMS & Production Portfolio Management System
+            Full-Stack & AI Software Portfolio Content Management System
           </p>
         </div>
 
@@ -74,43 +74,43 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Primary Filmmaker Metrics Grid */}
+      {/* Primary IT Metrics Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         
         <Link href="/admin/projects" className="bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-5 rounded-2xl transition-all group">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Projects</span>
-            <Film className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+            <Code className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
           </div>
           <div className="text-3xl font-black text-white mt-2">{projects.length}</div>
-          <div className="text-[11px] text-cyan-400 font-semibold mt-1">Manage All Works →</div>
+          <div className="text-[11px] text-cyan-400 font-semibold mt-1">Manage Software Projects →</div>
         </Link>
 
         <Link href="/admin/projects" className="bg-slate-900/60 border border-slate-800 hover:border-indigo-500/40 p-5 rounded-2xl transition-all group">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Directed Films</span>
-            <Clapperboard className="w-5 h-5 text-indigo-400 group-hover:scale-110 transition-transform" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Web & CMS Apps</span>
+            <Globe className="w-5 h-5 text-indigo-400 group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-3xl font-black text-white mt-2">{directedFilms.length}</div>
-          <div className="text-[11px] text-indigo-400 font-semibold mt-1">Director Category →</div>
+          <div className="text-3xl font-black text-white mt-2">{webProjects.length}</div>
+          <div className="text-[11px] text-indigo-400 font-semibold mt-1">Web Applications →</div>
         </Link>
 
         <Link href="/admin/projects" className="bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 p-5 rounded-2xl transition-all group">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">AD Projects</span>
-            <Video className="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">AI / ML Solutions</span>
+            <Cpu className="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-3xl font-black text-white mt-2">{adWorks.length}</div>
-          <div className="text-[11px] text-emerald-400 font-semibold mt-1">Assistant Director →</div>
+          <div className="text-3xl font-black text-white mt-2">{aiProjects.length}</div>
+          <div className="text-[11px] text-emerald-400 font-semibold mt-1">Machine Learning →</div>
         </Link>
 
-        <Link href="/admin/awards" className="bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 p-5 rounded-2xl transition-all group">
+        <Link href="/admin/certifications" className="bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 p-5 rounded-2xl transition-all group">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Awards & Honors</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Certifications</span>
             <Trophy className="w-5 h-5 text-amber-400 group-hover:scale-110 transition-transform" />
           </div>
-          <div className="text-3xl font-black text-white mt-2">{awards.length}</div>
-          <div className="text-[11px] text-amber-400 font-semibold mt-1">Manage Film Awards →</div>
+          <div className="text-3xl font-black text-white mt-2">{certifications.length}</div>
+          <div className="text-[11px] text-amber-400 font-semibold mt-1">Manage Credentials →</div>
         </Link>
 
       </div>
@@ -119,8 +119,8 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         
         <Link href="/admin/skills" className="bg-slate-950 border border-slate-800 hover:border-cyan-500/30 p-4 rounded-xl transition-all">
-          <div className="text-xs text-slate-400 font-medium">Skills & Directing Stack</div>
-          <div className="text-xl font-bold text-white mt-1">{skills.length} Items</div>
+          <div className="text-xs text-slate-400 font-medium">Skills & Tech Stack</div>
+          <div className="text-xl font-bold text-white mt-1">{skills.length} Technologies</div>
         </Link>
 
         <Link href="/admin/media" className="bg-slate-950 border border-slate-800 hover:border-cyan-500/30 p-4 rounded-xl transition-all">
@@ -128,13 +128,13 @@ export default function AdminDashboard() {
           <div className="text-xl font-bold text-white mt-1">Cloudinary Connected</div>
         </Link>
 
-        <Link href="/admin/certifications" className="bg-slate-950 border border-slate-800 hover:border-cyan-500/30 p-4 rounded-xl transition-all">
-          <div className="text-xs text-slate-400 font-medium">Certifications</div>
-          <div className="text-xl font-bold text-white mt-1">{(data.certifications || []).length} Credentials</div>
+        <Link href="/admin/experience" className="bg-slate-950 border border-slate-800 hover:border-cyan-500/30 p-4 rounded-xl transition-all">
+          <div className="text-xs text-slate-400 font-medium">Work Experience</div>
+          <div className="text-xl font-bold text-white mt-1">{(data.experience || []).length} Roles</div>
         </Link>
 
         <Link href="/admin/messages" className="bg-slate-950 border border-slate-800 hover:border-cyan-500/30 p-4 rounded-xl transition-all">
-          <div className="text-xs text-slate-400 font-medium">Public Inquiries</div>
+          <div className="text-xs text-slate-400 font-medium">Public Messages</div>
           <div className="text-xl font-bold text-white mt-1">
             {unreadCount > 0 ? `${unreadCount} Unread` : `${messages.length} Received`}
           </div>
@@ -146,7 +146,7 @@ export default function AdminDashboard() {
       <div className="bg-slate-900/60 border border-slate-800/80 p-6 rounded-3xl space-y-4">
         <h2 className="text-base font-black text-white flex items-center gap-2">
           <PlusCircle className="w-4 h-4 text-cyan-400" />
-          <span>Quick Production Actions</span>
+          <span>Quick Admin Actions</span>
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -154,9 +154,9 @@ export default function AdminDashboard() {
             href="/admin/projects"
             className="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all group"
           >
-            <Clapperboard className="w-5 h-5 text-cyan-400 mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-xs font-bold text-white">Add Film Project</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Upload poster, stills or YouTube link</div>
+            <Code className="w-5 h-5 text-cyan-400 mb-2 group-hover:scale-110 transition-transform" />
+            <div className="text-xs font-bold text-white">Add Web Project</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Upload screenshots & live demo URL</div>
           </Link>
 
           <Link
@@ -164,26 +164,26 @@ export default function AdminDashboard() {
             className="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all group"
           >
             <User className="w-5 h-5 text-indigo-400 mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-xs font-bold text-white">Edit Director Bio</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Director statement & headshot</div>
+            <div className="text-xs font-bold text-white">Edit Developer Bio</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Profile summary & resume PDF</div>
           </Link>
 
           <Link
-            href="/admin/media"
+            href="/admin/skills"
             className="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all group"
           >
-            <ImageIcon className="w-5 h-5 text-emerald-400 mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-xs font-bold text-white">Cloudinary Media</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Browse images & film clips</div>
+            <Cpu className="w-5 h-5 text-emerald-400 mb-2 group-hover:scale-110 transition-transform" />
+            <div className="text-xs font-bold text-white">Update Tech Stack</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Languages, frameworks & tools</div>
           </Link>
 
           <Link
-            href="/admin/awards"
+            href="/admin/certifications"
             className="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all group"
           >
             <Trophy className="w-5 h-5 text-amber-400 mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-xs font-bold text-white">Add Award / Honor</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Certificate image & laurels</div>
+            <div className="text-xs font-bold text-white">Add Certification</div>
+            <div className="text-[11px] text-slate-400 mt-0.5">Credential image & details</div>
           </Link>
         </div>
       </div>

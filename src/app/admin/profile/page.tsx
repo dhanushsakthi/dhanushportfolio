@@ -256,12 +256,12 @@ export default function ProfileAdmin() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-400 mb-1">Director Statement / Vision</label>
+            <label className="block text-xs font-semibold text-slate-400 mb-1">Professional Summary / Core Vision</label>
             <input
               type="text"
               value={profile.directorStatement || ''}
               onChange={(e) => setProfile({ ...profile, directorStatement: e.target.value })}
-              placeholder="Filmmaking to me is the delicate art of capturing truth..."
+              placeholder="Building high-performance e-commerce platforms and intelligent AI solutions..."
               className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
             />
           </div>
@@ -290,7 +290,7 @@ export default function ProfileAdmin() {
         {/* Contact & Social Links */}
         <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
           <h2 className="text-xs font-black uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-3">
-            Contact & Filmmaker Channels
+            Contact & Professional Channels
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -327,23 +327,23 @@ export default function ProfileAdmin() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">Instagram URL</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">GitHub Profile URL</label>
               <input
                 type="text"
-                value={profile.instagramUrl || ''}
-                onChange={(e) => setProfile({ ...profile, instagramUrl: e.target.value })}
-                placeholder="https://instagram.com/dhanush_director"
+                value={profile.githubUrl || ''}
+                onChange={(e) => setProfile({ ...profile, githubUrl: e.target.value })}
+                placeholder="https://github.com/dhanushsakthi"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 mb-1">YouTube Channel URL</label>
+              <label className="block text-xs font-semibold text-slate-400 mb-1">LinkedIn Profile URL</label>
               <input
                 type="text"
-                value={profile.youtubeUrl || ''}
-                onChange={(e) => setProfile({ ...profile, youtubeUrl: e.target.value })}
-                placeholder="https://youtube.com/@dhanushfilms"
+                value={profile.linkedInUrl || ''}
+                onChange={(e) => setProfile({ ...profile, linkedInUrl: e.target.value })}
+                placeholder="https://linkedin.com/in/dhanushsakthivel"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:border-cyan-500 outline-none"
               />
             </div>

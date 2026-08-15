@@ -397,16 +397,16 @@ export default function AdminProjects() {
         </div>
       )}
 
-      {/* Add / Edit Film Modal */}
+      {/* Add / Edit Project Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-3xl w-full my-8 overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             
             <div className="px-6 py-5 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-slate-900 z-10">
               <div className="flex items-center gap-2">
-                <Film className="w-5 h-5 text-cyan-400" />
+                <Code className="w-5 h-5 text-cyan-400" />
                 <h3 className="text-base font-black text-white">
-                  {editingProject ? 'Edit Film Project' : 'Add New Film Project'}
+                  {editingProject ? 'Edit Software Project' : 'Add New Software Project'}
                 </h3>
               </div>
               <button
@@ -421,35 +421,33 @@ export default function AdminProjects() {
               
               {/* Basic Details */}
               <div className="space-y-4">
-                <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400">1. Film Title & Category</h4>
+                <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400">1. Project Title & Category</h4>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-slate-400 font-semibold mb-1">Film Title *</label>
+                    <label className="block text-slate-400 font-semibold mb-1">Project Title *</label>
                     <input
                       type="text"
                       required
                       value={form.title || ''}
                       onChange={e => setForm({ ...form, title: e.target.value })}
-                      placeholder="e.g. LOCK-IN"
+                      placeholder="e.g. KMD Food Products / Aaraa Gifts"
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 font-semibold mb-1">Project Type *</label>
+                    <label className="block text-slate-400 font-semibold mb-1">Project Category *</label>
                     <select
-                      value={form.projectType || 'Directed Film'}
-                      onChange={e => setForm({ ...form, projectType: e.target.value as ProjectType })}
+                      value={form.category || form.projectType || 'E-Commerce'}
+                      onChange={e => setForm({ ...form, category: e.target.value, projectType: e.target.value as ProjectType })}
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
                     >
-                      <option value="Directed Film">Directed Film</option>
-                      <option value="Assistant Director Work">Assistant Director Work</option>
-                      <option value="Short Film">Short Film</option>
-                      <option value="Feature Film">Feature Film</option>
-                      <option value="Music Video">Music Video</option>
-                      <option value="Advertisement">Advertisement</option>
-                      <option value="Experimental Film">Experimental Film</option>
+                      <option value="E-Commerce">E-Commerce</option>
+                      <option value="CMS">CMS Platform</option>
+                      <option value="AI / ML">AI / Machine Learning</option>
+                      <option value="Client Work">Client Work</option>
+                      <option value="Web Application">Web Application</option>
                       <option value="Other">Other</option>
                     </select>
                   </div>
@@ -459,156 +457,85 @@ export default function AdminProjects() {
                   <div>
                     <label className="block text-slate-400 font-semibold mb-1">My Primary Role *</label>
                     <select
-                      value={form.role || 'Director'}
+                      value={form.role || 'Full-Stack Developer'}
                       onChange={e => setForm({ ...form, role: e.target.value as ProjectRole })}
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
                     >
-                      <option value="Director">Director</option>
-                      <option value="Assistant Director">Assistant Director</option>
-                      <option value="Writer">Writer</option>
-                      <option value="Screenwriter">Screenwriter</option>
-                      <option value="Cinematographer">Cinematographer</option>
-                      <option value="Editor">Editor</option>
+                      <option value="Full-Stack Developer">Full-Stack Developer</option>
+                      <option value="Frontend Developer">Frontend Developer</option>
+                      <option value="Lead Developer">Lead Developer</option>
+                      <option value="Machine Learning Intern">Machine Learning Intern</option>
+                      <option value="Web Developer">Web Developer</option>
                       <option value="Other">Other</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 font-semibold mb-1">Release Year</label>
+                    <label className="block text-slate-400 font-semibold mb-1">Client / Context</label>
                     <input
                       type="text"
-                      value={form.year || ''}
-                      onChange={e => setForm({ ...form, year: e.target.value })}
-                      placeholder="2026"
+                      value={form.clientContext || ''}
+                      onChange={e => setForm({ ...form, clientContext: e.target.value })}
+                      placeholder="e.g. Auro Tech / Freelance Client"
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 font-semibold mb-1">Genre</label>
+                    <label className="block text-slate-400 font-semibold mb-1">Live Demo URL</label>
                     <input
                       type="text"
-                      value={form.genre || ''}
-                      onChange={e => setForm({ ...form, genre: e.target.value })}
-                      placeholder="Thriller / Drama"
+                      value={form.liveDemoUrl || ''}
+                      onChange={e => setForm({ ...form, liveDemoUrl: e.target.value })}
+                      placeholder="https://kmdfoodproducts.com/..."
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 font-semibold mb-1">Logline (One line Hook)</label>
-                  <input
-                    type="text"
-                    value={form.logline || ''}
-                    onChange={e => setForm({ ...form, logline: e.target.value })}
-                    placeholder="An ambitious engineer gets trapped inside an abandoned lab overnight..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-400 font-semibold mb-1">Short Synopsis</label>
+                  <label className="block text-slate-400 font-semibold mb-1">Short Description (Card Summary)</label>
                   <textarea
                     rows={2}
                     value={form.shortDescription || ''}
                     onChange={e => setForm({ ...form, shortDescription: e.target.value })}
-                    placeholder="Brief summary for portfolio cards..."
+                    placeholder="Brief summary of application features and purpose..."
                     className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 font-semibold mb-1">Detailed Description / Production Notes</label>
+                  <label className="block text-slate-400 font-semibold mb-1">Detailed System Architecture & Features</label>
                   <textarea
                     rows={4}
                     value={form.detailedDescription || ''}
                     onChange={e => setForm({ ...form, detailedDescription: e.target.value })}
-                    placeholder="Full story description, behind-the-scenes breakdown, festival details..."
+                    placeholder="Full technical overview, workflow details, database schema & client outcomes..."
                     className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
                   />
                 </div>
               </div>
 
-              {/* Video System */}
-              <div className="space-y-4 pt-4 border-t border-slate-800">
-                <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400">2. Video Source (YouTube or Cloudinary)</h4>
-                
-                <div className="flex items-center gap-4">
-                  <label className="flex items-center gap-2 cursor-pointer font-bold text-white">
-                    <input
-                      type="radio"
-                      name="videoSourceType"
-                      value="youtube"
-                      checked={form.videoSourceType === 'youtube'}
-                      onChange={() => setForm({ ...form, videoSourceType: 'youtube' })}
-                      className="accent-cyan-500"
-                    />
-                    <YouTubeIcon className="w-4 h-4 text-red-500" />
-                    <span>YouTube URL</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 cursor-pointer font-bold text-white">
-                    <input
-                      type="radio"
-                      name="videoSourceType"
-                      value="cloudinary"
-                      checked={form.videoSourceType === 'cloudinary'}
-                      onChange={() => setForm({ ...form, videoSourceType: 'cloudinary' })}
-                      className="accent-cyan-500"
-                    />
-                    <Video className="w-4 h-4 text-cyan-400" />
-                    <span>Cloudinary Upload</span>
-                  </label>
-                </div>
-
-                {form.videoSourceType === 'youtube' ? (
-                  <div>
-                    <label className="block text-slate-400 font-semibold mb-1">YouTube Video Link</label>
-                    <input
-                      type="text"
-                      value={form.youtubeUrl || ''}
-                      onChange={e => setForm({ ...form, youtubeUrl: e.target.value })}
-                      placeholder="https://www.youtube.com/watch?v=XXXXXXXX"
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-cyan-500 outline-none"
-                    />
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    <label className="block text-slate-400 font-semibold mb-1">Upload Video File to Cloudinary</label>
-                    <input
-                      type="file"
-                      accept="video/*"
-                      onChange={e => handleFileUpload(e, 'cloudinaryVideo')}
-                      className="block w-full text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-cyan-500/20 file:text-cyan-300 hover:file:bg-cyan-500/30"
-                    />
-                    {form.cloudinaryUrl && (
-                      <p className="text-[11px] text-emerald-400 font-mono line-clamp-1">✓ Cloudinary Video: {form.cloudinaryUrl}</p>
-                    )}
-                  </div>
-                )}
-              </div>
-
               {/* Media Uploads */}
               <div className="space-y-4 pt-4 border-t border-slate-800">
-                <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400">3. Posters & Gallery Stills</h4>
+                <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400">2. Project Banner & Screenshots</h4>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-slate-400 font-semibold mb-1">Film Poster (Cloudinary)</label>
+                    <label className="block text-slate-400 font-semibold mb-1">Main Image / Banner (Cloudinary)</label>
                     <input
                       type="file"
                       accept="image/*"
                       onChange={e => handleFileUpload(e, 'poster')}
                       className="block w-full text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-slate-800 file:text-slate-200"
                     />
-                    {form.poster && (
-                      <img src={form.poster} alt="Poster preview" className="w-24 h-36 object-cover rounded-xl border border-slate-800 mt-2" />
+                    {(form.imageUrl || form.poster) && (
+                      <img src={form.imageUrl || form.poster} alt="Banner preview" className="w-full aspect-video object-cover rounded-xl border border-slate-800 mt-2" />
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-slate-400 font-semibold mb-1">Multiple Gallery Stills (BTS / Stills)</label>
+                    <label className="block text-slate-400 font-semibold mb-1">Multiple Screenshots Gallery</label>
                     <input
                       type="file"
                       accept="image/*"
@@ -620,7 +547,7 @@ export default function AdminProjects() {
                       <div className="flex flex-wrap gap-2 mt-2">
                         {form.screenshots.map((url, idx) => (
                           <div key={idx} className="relative w-16 h-12 rounded-lg overflow-hidden border border-slate-800 group">
-                            <img src={url} alt={`Still ${idx}`} className="w-full h-full object-cover" />
+                            <img src={url} alt={`Screenshot ${idx}`} className="w-full h-full object-cover" />
                             <button
                               type="button"
                               onClick={() => setForm(prev => ({ ...prev, screenshots: prev.screenshots?.filter((_, i) => i !== idx) }))}
@@ -650,7 +577,7 @@ export default function AdminProjects() {
 
               {/* Status & Display Toggles */}
               <div className="space-y-4 pt-4 border-t border-slate-800">
-                <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400">4. Status & Display Order</h4>
+                <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400">3. Status & Display Order</h4>
                 
                 <div className="flex items-center gap-6">
                   <label className="flex items-center gap-2 cursor-pointer font-bold text-white">
@@ -698,7 +625,7 @@ export default function AdminProjects() {
                   disabled={uploadingMedia}
                   className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold shadow-lg shadow-cyan-500/25 disabled:opacity-50"
                 >
-                  Save Film Project
+                  Save Project
                 </button>
               </div>
 
